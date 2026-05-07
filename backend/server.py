@@ -87,12 +87,12 @@ IMG_HEATPUMP = "https://images.unsplash.com/photo-1776860150272-653efc74193c?cro
 IMG_SMART = "https://images.unsplash.com/photo-1702495591786-37df7dee310d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMGhvbWUlMjB0YWJsZXR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85"
 IMG_SOLAR = "https://images.unsplash.com/photo-1761571740780-d9149a88b759?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVsJTIwaG91c2UlMjBtb2Rlcm58ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85"
 IMG_THERMO = "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwxfHxzbWFydCUyMHRoZXJtb3N0YXR8ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85"
-IMG_BOILER = "https://images.unsplash.com/photo-1585503913867-0a0ea1d8e29e?w=1200&q=80"
-IMG_SWITCH = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
-IMG_LED = "https://images.unsplash.com/photo-1565636192335-a75ea69a5df0?w=1200&q=80"
-IMG_WATER = "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=1200&q=80"
-IMG_BATTERY = "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80"
-IMG_METER = "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80"
+IMG_BOILER = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80"
+IMG_SWITCH = "https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80"
+IMG_LED = "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=1200&q=80"
+IMG_WATER = "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=1200&q=80"
+IMG_BATTERY = "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=1200&q=80"
+IMG_METER = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80"
 
 
 SEED_PRODUCTS = [

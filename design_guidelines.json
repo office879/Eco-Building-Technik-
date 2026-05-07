@@ -1,0 +1,127 @@
+{
+  "identity": {
+    "project_name": "ECO Building Technik",
+    "theme": "Dark",
+    "archetype": "Archetype 4 (Swiss & High-Contrast) + Elements of Archetype 2 (Performance Pro)",
+    "vibe": "Ultra-modern, premium engineering, high-tech sustainability, A+++ efficiency",
+    "target_audience": "Homeowners and B2B customers in the DACH region"
+  },
+  "design_system": {
+    "colors": {
+      "background": {
+        "base": "#0A0A0A",
+        "surface": "#121212",
+        "surface_elevated": "#1A1A1A"
+      },
+      "accents": {
+        "primary": "#00FF66",
+        "primary_hover": "#33FF85",
+        "secondary": "#10B981",
+        "tertiary": "#047857"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#A1A1AA",
+        "muted": "#71717A",
+        "inverse": "#000000"
+      },
+      "border": {
+        "default": "#27272A",
+        "focus": "#00FF66",
+        "glass": "rgba(255, 255, 255, 0.1)"
+      }
+    },
+    "typography": {
+      "headings": {
+        "font_family": "Cabinet Grotesk",
+        "weights": ["300", "800"],
+        "letter_spacing": "tracking-tighter",
+        "sizes": {
+          "h1": "text-5xl md:text-6xl+",
+          "h2": "text-4xl",
+          "h3": "text-2xl",
+          "h4": "text-xl"
+        }
+      },
+      "body": {
+        "font_family": "Manrope",
+        "weights": ["400", "500"],
+        "line_height": "leading-relaxed",
+        "sizes": {
+          "base": "text-base",
+          "sm": "text-sm",
+          "xs": "text-xs"
+        }
+      },
+      "labels": {
+        "transform": "uppercase",
+        "letter_spacing": "tracking-[0.2em]",
+        "size": "text-xs"
+      }
+    },
+    "surfaces": {
+      "glassmorphism": "bg-black/60 backdrop-blur-xl border-b border-white/10",
+      "cards": "bg-[#121212] border border-zinc-800 rounded-none sm:rounded-sm hover:border-zinc-700 transition-colors duration-300",
+      "grid_lines": "border-collapse border-r border-b border-zinc-800",
+      "buttons": {
+        "primary": "bg-[#00FF66] text-black font-semibold hover:bg-[#33FF85] transition-colors rounded-none px-6 py-3",
+        "secondary": "bg-transparent border border-zinc-700 text-white hover:border-[#00FF66] transition-colors rounded-none px-6 py-3"
+      }
+    },
+    "spacing": {
+      "generous_padding": "p-8 md:p-12 lg:p-16",
+      "section_gap": "gap-12 md:gap-24",
+      "container_max": "max-w-7xl mx-auto"
+    }
+  },
+  "layout_strategy": {
+    "marketing_pages": "Use 'Tetris' grid (grid-cols-1 md:grid-cols-12) with heavy asymmetry. Large typography, bold green accents to signify energy efficiency, high-contrast black/white structural flow.",
+    "ecommerce_shop": "Use 'Control Room' grid layout for the shop. Strict, dense 1px grid lines separating products. Avoid traditional floating 'cards'; use border-collapse style. Filters on the left (col-span-3), products on the right (col-span-9).",
+    "dashboard": "Technical, data-heavy layout using Recharts for energy monitoring/calculators. Solid matte black background with neon green data visualizations."
+  },
+  "component_rules": {
+    "navigation": "Sticky, glassmorphism header (z-50). Must include the ECO Building Technik logo, key links, Cart/Anfragekorb indicator, and a prominent B2B Login button.",
+    "hero_section": "Dark overlay (bg-black/40 to bg-black/60) on the hero image. Left-aligned, massive H1 in Cabinet Grotesk, overlapping a minimal A+++ energy badge.",
+    "product_cards": "No dropshadows. 1px solid borders (border-zinc-800). Product image takes 60% of height, sharp edges. On hover: border-zinc-500, slight -translate-y-1.",
+    "badges": "For trust symbols (Klimaförderung, A+++, 14 Tage Rückgaberecht): small pill shapes with a 1px green border and neon text.",
+    "forms": "Shadcn UI base but override to dark mode. Inputs: bg-transparent border-b-2 border-zinc-800 focus:border-[#00FF66] focus:ring-0 rounded-none."
+  },
+  "media_assets": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern house exterior at night with dynamic lighting."
+    },
+    "product_smart_home": {
+      "url": "https://images.unsplash.com/photo-1702495591786-37df7dee310d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMGhvbWUlMjB0YWJsZXR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Smart home tablet/interface."
+    },
+    "product_heat_pump": {
+      "url": "https://images.unsplash.com/photo-1776860150272-653efc74193c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxoZWF0JTIwcHVtcCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NzgxMjc4MzB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern outdoor heat pump unit."
+    },
+    "product_solar": {
+      "url": "https://images.unsplash.com/photo-1761571740780-d9149a88b759?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVsJTIwaG91c2UlMjBtb2Rlcm58ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Modern house integrated with solar technology."
+    },
+    "product_thermostat": {
+      "url": "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwxfHxzbWFydCUyMHRoZXJtb3N0YXR8ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Smart thermostat display."
+    },
+    "background_texture": {
+      "url": "https://images.unsplash.com/photo-1764435447957-a7f9149063a5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdyZWVuJTIwdGVjaCUyMGxpbmVzfGVufDB8fHx8MTc3ODEyNzgzMHww&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract green tech lines for dynamic section backgrounds."
+    }
+  },
+  "testing_guidelines": {
+    "attributes": "All interactive elements, buttons, links, form inputs, and shop actions must include `data-testid` using kebab-case role-based naming (e.g., `data-testid=\"cart-checkout-button\"`)."
+  },
+  "instructions_to_main_agent": [
+    "Install and use 'Cabinet Grotesk' for headings and 'Manrope' for body text (import via Google Fonts/Fontshare).",
+    "Use pure HTML and Tailwind for marketing/hero sections to achieve the asymmetrical 'Tetris' grid layout.",
+    "Use Shadcn UI components for the e-commerce structure, cart, and dashboard, but heavily customize them to remove the 'default Vercel' look: replace rounded corners with sharp edges, remove soft box-shadows, and use solid 1px zinc-800 borders.",
+    "Implement an interactive Energy Calculator using Recharts or styled sliders.",
+    "Use Phosphor Icons (@phosphor-icons/react) for high-end, precise technical UI icons.",
+    "Apply 'framer-motion' for staggered entrance animations in the shop and page transitions.",
+    "Ensure total dark mode consistency—pure white text on dark grey/black surfaces with high-visibility neon green primary actions."
+  ]
+}

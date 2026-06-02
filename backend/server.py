@@ -32,6 +32,7 @@ class Product(BaseModel):
     description: str
     image: str
     gallery: List[str] = []
+    video_url: Optional[str] = None
     specs: dict = {}
     features: List[str] = []
     featured: bool = False
@@ -334,6 +335,67 @@ SEED_PRODUCTS = [
     # ============================================
     # JNOD Premium (Top-Discharge R290) — bestehend
     # ============================================
+    {"slug": "jnod-water-heater-200l",
+     "name": "JNOD All-in-One Warmwasser-Wärmepumpe 200L",
+     "category": "wasser",
+     "short_description": "Schlanke All-in-One Warmwasser-Wärmepumpe mit integriertem 200L-Speicher. Smart-Display, leise, energieeffizient.",
+     "description": "Die JNOD All-in-One Warmwasser-Wärmepumpe verbindet Wärmepumpentechnologie mit einem integrierten 200L-Edelstahl-Speicher in einem schlanken, modernen Gehäuse. Ideal für Wohnungen, Einfamilienhäuser und Badezimmer-Installationen mit anspruchsvoller Optik.\n\nIntegriertes LCD-Touch-Display zeigt aktuelle Wasser- und Set-Temperatur sowie Uhrzeit. WiFi-fähig — Steuerung per App, Anti-Legionellen-Programm, PV-Überschussladung. Sehr leiser Betrieb (≤42 dB(A)) macht die Installation auch in Wohnräumen möglich.\n\nA+++ Energieeffizienz mit COP bis 4,2 — bis zu 75% Stromersparnis gegenüber konventionellen Elektroboilern.",
+     "image": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/7wlncn5g_Hbd595fc58d8f46c2a8b6062bdceb17bd8.jpg",
+     "video_url": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/83n3ppvm_J12HWH-No%20LOGO%20%282%29.mp4",
+     "featured": True, "badge": "ALL-IN-ONE",
+     "price_note": "Preis auf Anfrage · ab € 2.290",
+     "specs": {
+         "Modell": "JNOD All-in-One 200L",
+         "Speichervolumen": "200 L (Edelstahl)",
+         "Heizleistung": "2 – 4 kW",
+         "Energieklasse": "A+++",
+         "COP": "bis 4,2",
+         "Display": "LCD Touch",
+         "WiFi": "Ja, App-Steuerung",
+         "Geräuschpegel": "≤ 42 dB(A)",
+         "PV-Funktion": "Ja (Überschuss-Modus)",
+         "Garantie": "3 Jahre",
+     },
+     "features": [
+         "Schlanke All-in-One Bauweise",
+         "200L Edelstahl-Speicher integriert",
+         "LCD Touch-Display",
+         "WiFi & App-Steuerung",
+         "Anti-Legionellen-Programm",
+         "PV-Überschuss-Modus",
+         "≤ 42 dB(A) — wohnraumtauglich",
+         "75% Stromersparnis vs. Elektroboiler",
+     ]},
+
+    {"slug": "golden-security-smart-panel",
+     "name": "Golden Security Smart Home Touch-Panel + Switch-Modul",
+     "category": "smart-home",
+     "short_description": "Premium Smart-Home Wandpanel mit Touchscreen und integrierten Switch-Modulen. Wetter, Uhrzeit, Szenen, Heim/Abwesend.",
+     "description": "Das Golden Security Smart Home Touch-Panel ist das Herzstück eines modernen smart-Home-Setups. Ein elegantes Wand-Tablet zeigt Wetter, Uhrzeit, Heim/Abwesend-Modus und Schnellzugriff auf alle Szenen — kombiniert mit integrierten Touch-Switches für Licht und Geräte.\n\nKompatibel mit Tuya / Smart Life Ökosystem, WiFi-Anbindung, große Auswahl an Szenen und Automatisierungen. Premium-Glasoberfläche, RGB-LED-Indikatoren, geeignet für moderne Wohnzimmer, Eingänge und Flure.\n\nEbenso geeignet für Hotels und Gewerbe — eine zentrale Anlaufstelle zur Steuerung der gesamten Gebäudetechnik.",
+     "image": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/xtfndjpm_H6adb350c50da4c92bc1d15d5aab200f7R.png",
+     "featured": True, "badge": "PREMIUM",
+     "price_note": "Preis auf Anfrage · ab € 489",
+     "specs": {
+         "Display": "Touchscreen Wand-Tablet",
+         "Anzeige": "Wetter, Uhrzeit, Szenen, Heim/Abwesend",
+         "Touch-Switches": "3 Tasten integriert",
+         "Protokoll": "WiFi 2.4 GHz",
+         "Ökosystem": "Tuya / Smart Life",
+         "Oberfläche": "Premium Glas",
+         "Indikator": "RGB-LED",
+         "Anwendung": "Wohnen, Hotel, Gewerbe",
+     },
+     "features": [
+         "All-in-One Touchscreen Wand-Panel",
+         "3 integrierte Touch-Switches",
+         "Wetter, Uhrzeit & Szenen-Anzeige",
+         "Heim/Abwesend-Modus mit einem Tap",
+         "Tuya / Smart Life kompatibel",
+         "Alexa & Google Home",
+         "Premium Glas-Front",
+         "Programmierbare Szenen",
+     ]},
+
     {"slug": "jnod-jmu50hcinv-r290-top-discharge",
      "name": "JNOD JMU50HCINV R290 Top-Discharge Wärmepumpe 5–20 kW",
      "category": "waermepumpen",
@@ -347,6 +409,7 @@ SEED_PRODUCTS = [
          "https://s.alicdn.com/@sc04/kf/H8606babf9a6045dca3e761a81cd3e0580.png_960x960q80.jpg",
          "https://s.alicdn.com/@sc04/kf/Hcf0540e5bc1b4982830d23654ac7e544X.png_960x960q80.jpg",
      ],
+     "video_url": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/w6kk5464_J12HWH-No%20LOGO%20%281%29%20%281%29.mp4",
      "featured": True, "badge": "NEU · R290",
      "price_from": 4890.0,
      "price_note": "ab € 4.890,– zzgl. MwSt.",

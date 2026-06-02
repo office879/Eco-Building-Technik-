@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
-const VIDEO_SRC = "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-the-modern-glass-buildings-of-a-32820-large.mp4";
-const POSTER = "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85";
+const VIDEO_SRC = "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/q1nbilbz_74089e90-a0ba-4dd9-816e-392ee56c9f9b-h264-hd.mp4";
+const POSTER = "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/7wlncn5g_Hbd595fc58d8f46c2a8b6062bdceb17bd8.jpg";
 const MUSIC_SRC = "https://cdn.pixabay.com/audio/2022/08/02/audio_2dde668ca0.mp3"; // ambient corporate
 
 /**

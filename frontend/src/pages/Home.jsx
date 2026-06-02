@@ -7,8 +7,9 @@ import FAQ from "../components/FAQ";
 import VideoFeature from "../components/VideoFeature";
 import { fetchProducts } from "../lib/api";
 
-const HERO_IMG = "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85";
-const TECH_IMG = "https://images.unsplash.com/photo-1761571740780-d9149a88b759?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVsJTIwaG91c2UlMjBtb2Rlcm58ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85";
+const HERO_VIDEO = "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/q1nbilbz_74089e90-a0ba-4dd9-816e-392ee56c9f9b-h264-hd.mp4";
+const HERO_POSTER = "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85";
+const TECH_IMG = "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/xtfndjpm_H6adb350c50da4c92bc1d15d5aab200f7R.png";
 
 const SERVICES = [
   { n: "01", icon: Leaf, title: "Wärmepumpen & Heiztechnik",
@@ -73,9 +74,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero image strip below */}
+        {/* Hero video strip below */}
         <div className="relative h-[44vh] md:h-[60vh] w-full overflow-hidden">
-          <img src={HERO_IMG} alt="Modern sustainable building" className="absolute inset-0 w-full h-full object-cover" />
+          <video
+            src={HERO_VIDEO}
+            poster={HERO_POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover"
+            data-testid="hero-video"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1736] via-transparent to-[#0B1736]/30"/>
         </div>
       </section>

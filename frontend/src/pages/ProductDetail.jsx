@@ -53,9 +53,23 @@ export default function ProductDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 border border-white/10">
           <div className="lg:col-span-7 bg-[#0E1A3E] border-b lg:border-b-0 lg:border-r border-white/10">
-            <div className="aspect-[4/3] overflow-hidden">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover"/>
-            </div>
+            {product.video_url ? (
+              <div className="aspect-[4/3] relative overflow-hidden bg-black">
+                <video
+                  src={product.video_url}
+                  poster={product.image}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  data-testid="product-video"
+                />
+              </div>
+            ) : (
+              <div className="aspect-[4/3] overflow-hidden">
+                <img src={product.image} alt={product.name} className="w-full h-full object-cover"/>
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-5 p-10 lg:p-14">

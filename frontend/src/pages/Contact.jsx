@@ -40,8 +40,8 @@ export default function Contact() {
           <div className="lg:col-span-5 p-10 lg:p-14 border-b lg:border-b-0 lg:border-r border-white/10">
             <div className="eyebrow mb-8">Direktkontakt</div>
             <div className="space-y-10">
-              <InfoBlock icon={MapPin} title="Adresse" body={<>Seepromenade 109<br/>AT-2384 Ebreichsdorf<br/>Österreich</>}/>
-              <InfoBlock icon={Phone} title="Telefon" body={<a href="tel:+436643289599" className="hover:text-white">+43 / 0664 328 95 99</a>}/>
+              <InfoBlock icon={MapPin} title="Adresse" body={<>ECO Building Technik GmbH<br/>Seepromenade 109<br/>AT-2384 Ebreichsdorf<br/>Österreich</>}/>
+              <InfoBlock icon={Phone} title="Mobil" body={<a href="tel:+436643289599" className="hover:text-white">+43 / 0664 328 95 99</a>}/>
               <InfoBlock icon={Mail} title="E-Mail" body={<a href="mailto:office@eco-building.tech" className="hover:text-white">office@eco-building.tech</a>}/>
               <InfoBlock icon={Clock} title="Öffnungszeiten" body={<>Mo–Fr 08:00 — 18:00<br/>Sa nach Vereinbarung</>}/>
             </div>

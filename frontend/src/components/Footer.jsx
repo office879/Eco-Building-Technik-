@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -7,16 +8,14 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-20 grid grid-cols-1 md:grid-cols-12 gap-12">
         <div className="md:col-span-5">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-11 h-11 border border-white/40 flex items-center justify-center">
-              <span className="font-display font-bold text-base">E</span>
-            </div>
+            <Logo size="md"/>
             <div className="leading-tight">
               <div className="font-display font-bold text-sm tracking-[0.18em]">ECO BUILDING</div>
               <div className="eyebrow text-[10px] mt-0.5">TECHNIK GMBH</div>
             </div>
           </div>
           <p className="text-white/60 text-sm max-w-md leading-relaxed">
-            ECO Building Technik plant, liefert und installiert nachhaltige Gebäudetechnik — von A+++ Wärmepumpen
+            ECO Building Technik GmbH plant, liefert und installiert nachhaltige Gebäudetechnik — von A+++ Wärmepumpen
             über Gas-Brennwertgeräte bis hin zu Smart-Home- und Energiemanagement-Systemen. Fachbetrieb mit
             persönlicher Beratung in Ebreichsdorf, Österreich.
           </p>
@@ -50,12 +49,16 @@ export default function Footer() {
               Österreich
             </li>
             <li>
-              <div className="text-white/50 text-xs mb-1">Telefon</div>
+              <div className="text-white/50 text-xs mb-1">Mobil</div>
               <a href="tel:+436643289599" className="hover:text-white">+43 / 0664 328 95 99</a>
             </li>
             <li>
               <div className="text-white/50 text-xs mb-1">E-Mail</div>
               <a href="mailto:office@eco-building.tech" className="hover:text-white">office@eco-building.tech</a>
+            </li>
+            <li>
+              <div className="text-white/50 text-xs mb-1">Internet</div>
+              <a href="https://www.eco-building.tech" target="_blank" rel="noreferrer" className="hover:text-white">www.eco-building.tech</a>
             </li>
           </ul>
         </div>
@@ -64,8 +67,8 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] tracking-[0.12em] uppercase text-white/40 font-medium">
           <span>© {new Date().getFullYear()} ECO Building Technik GmbH — Alle Rechte vorbehalten.</span>
           <div className="flex items-center gap-6">
-            <Link to="/kontakt" className="hover:text-white">Impressum</Link>
-            <Link to="/kontakt" className="hover:text-white">Datenschutz</Link>
+            <Link to="/impressum" className="hover:text-white" data-testid="footer-impressum">Impressum</Link>
+            <Link to="/datenschutz" className="hover:text-white" data-testid="footer-datenschutz">Datenschutz</Link>
           </div>
         </div>
       </div>

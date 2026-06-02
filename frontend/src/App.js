@@ -13,6 +13,8 @@ import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import EnergyPage from "./pages/EnergyPage";
+import Impressum from "./pages/Impressum";
+import Datenschutz from "./pages/Datenschutz";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
               <Route path="/energie-rechner" element={<EnergyPage />} />
               <Route path="/ueber-uns" element={<About />} />
               <Route path="/kontakt" element={<Contact />} />
+              <Route path="/impressum" element={<Impressum />} />
+              <Route path="/datenschutz" element={<Datenschutz />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

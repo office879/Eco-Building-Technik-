@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import Logo from "./Logo";
 
 const nav = [
   { to: "/", label: "Start" },
@@ -37,9 +38,7 @@ export default function Header() {
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-20">
         <Link to="/" data-testid="logo-link" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 border border-white/40 flex items-center justify-center group-hover:border-white transition-colors">
-            <span className="font-display font-bold text-base">E</span>
-          </div>
+          <Logo size="md"/>
           <div className="leading-tight">
             <div className="font-display font-bold text-sm tracking-[0.18em]">ECO BUILDING</div>
             <div className="eyebrow text-[10px] mt-0.5">TECHNIK GMBH</div>

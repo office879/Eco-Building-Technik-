@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, Leaf, Cpu, Shield, Zap, Sun, Droplet } from "
 import ProductCard from "../components/ProductCard";
 import EnergyCalculator from "../components/EnergyCalculator";
 import FAQ from "../components/FAQ";
+import VideoFeature from "../components/VideoFeature";
 import { fetchProducts } from "../lib/api";
 
 const HERO_IMG = "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85";
@@ -161,6 +162,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Video Feature */}
+      <VideoFeature/>
 
       {/* Split feature */}
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pb-28">

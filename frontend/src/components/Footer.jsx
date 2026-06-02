@@ -69,6 +69,7 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <Link to="/impressum" className="hover:text-white" data-testid="footer-impressum">Impressum</Link>
             <Link to="/datenschutz" className="hover:text-white" data-testid="footer-datenschutz">Datenschutz</Link>
+            <Link to="/agb" className="hover:text-white" data-testid="footer-agb">AGB</Link>
           </div>
         </div>
       </div>

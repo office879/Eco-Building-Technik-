@@ -1,95 +1,100 @@
 import React from "react";
 
 /**
- * ECO Building Technik — typographic mark.
+ * ECO Building Technik — vector logo recreated from the official brand mark.
  *
- * Reinterprets the original logo (lowercase "eco" + leaf forming the second "o",
- * with "BUILDING TECHNIK" underneath) using clean typography that adapts perfectly
- * to the dark navy theme. The leaf glyph is rendered as a soft inline SVG to mimic
- * the spirit of the original brand without colour-conflict on dark backgrounds.
+ * Layout (matches the original):
+ *   "ec" + leaf-replaced "o" + "BUILDING TECHNIK" underneath
+ *
+ * Colours adapted for the navy theme:
+ *   • Body of "eco" + "BUILDING TECHNIK" → pure white
+ *   • Leaf glyph that flows through the "o" → white (subtle outline only)
+ * Scales crisply at any size.
  */
 export default function Logo({ size = "md", className = "" }) {
-  const cfg = {
-    sm: { ecoSize: 22, subSize: 7, gap: 0, sub: false },
-    md: { ecoSize: 28, subSize: 8, gap: 1, sub: false },
-    lg: { ecoSize: 60, subSize: 13, gap: 3, sub: true },
-  }[size] || { ecoSize: 28, subSize: 8, gap: 1, sub: false };
+  const heights = { sm: 32, md: 44, lg: 96 };
+  const h = heights[size] || heights.md;
+  const showSub = size === "lg";
+  const subH = h * 0.22;
 
   return (
     <span
       className={`inline-flex flex-col items-start leading-none ${className}`}
       aria-label="ECO Building Technik Logo"
     >
-      <span className="inline-flex items-center" style={{ height: cfg.ecoSize }}>
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 900,
-            fontSize: cfg.ecoSize,
-            letterSpacing: "-0.04em",
-            lineHeight: 1,
-            color: "#FFFFFF",
-          }}
+      {/* "ec" + leaf-o */}
+      <svg
+        viewBox="0 0 200 120"
+        height={h}
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        style={{ display: "block" }}
+      >
+        {/* letter e */}
+        <text
+          x="0"
+          y="100"
+          fontFamily="Inter, sans-serif"
+          fontWeight="900"
+          fontSize="118"
+          letterSpacing="-6"
+          fill="#FFFFFF"
         >
-          ec
-        </span>
-        <LeafO size={cfg.ecoSize} />
-      </span>
-      {cfg.sub && (
+          e
+        </text>
+        {/* letter c */}
+        <text
+          x="60"
+          y="100"
+          fontFamily="Inter, sans-serif"
+          fontWeight="900"
+          fontSize="118"
+          letterSpacing="-6"
+          fill="#FFFFFF"
+        >
+          c
+        </text>
+        {/* The "o" — drawn as a ring then a leaf shape slicing through it */}
+        <g transform="translate(118, 36)">
+          {/* outer ring outline */}
+          <circle cx="34" cy="34" r="30" stroke="#FFFFFF" strokeWidth="11" fill="none" />
+          {/* Leaf shape — diagonal teardrop from upper-right to lower-left
+              that wraps the o; uses solid white so it visually replaces the
+              right half of the ring. */}
+          <path
+            d="M62 4
+               C 70 22, 68 42, 54 56
+               C 40 70, 20 72, 6 66
+               C 12 50, 22 36, 36 24
+               C 48 14, 56 8, 62 4 Z"
+            fill="#FFFFFF"
+          />
+          {/* leaf central vein (kept very subtle) */}
+          <path
+            d="M58 10 C 46 28, 28 50, 12 64"
+            stroke="#0B1736"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            fill="none"
+            opacity="0.8"
+          />
+        </g>
+      </svg>
+
+      {showSub && (
         <span
           style={{
             fontFamily: "Inter, sans-serif",
             fontWeight: 700,
-            fontSize: cfg.subSize,
+            fontSize: subH,
             letterSpacing: "0.32em",
             color: "rgba(255,255,255,0.85)",
-            marginTop: cfg.gap + 4,
+            marginTop: 8,
           }}
         >
           BUILDING TECHNIK
         </span>
       )}
-    </span>
-  );
-}
-
-/**
- * The signature "o" shaped as a leaf — outlined ring with an inset leaf glyph
- * so the silhouette of the second o is preserved while gaining a green-tech
- * character (re-coloured white for the dark site).
- */
-function LeafO({ size }) {
-  const s = size * 0.95;
-  return (
-    <span
-      style={{
-        position: "relative",
-        width: s,
-        height: s,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginLeft: -size * 0.02,
-      }}
-    >
-      {/* Outer ring (the o) */}
-      <svg viewBox="0 0 100 100" width={s} height={s} style={{ position: "absolute", inset: 0 }}>
-        <circle cx="50" cy="50" r="40" fill="none" stroke="#FFFFFF" strokeWidth="16" />
-      </svg>
-      {/* Leaf overlay – diagonal leaf glyph that hints at "eco" */}
-      <svg viewBox="0 0 100 100" width={s * 0.62} height={s * 0.62} style={{ position: "relative", zIndex: 1 }}>
-        <path
-          d="M85 15c0 25-15 50-40 60-10 4-22 4-30 0 0-12 4-23 11-32C36 22 60 12 85 15z"
-          fill="#FFFFFF"
-        />
-        <path
-          d="M20 80c12-15 30-30 50-45"
-          stroke="#0B1736"
-          strokeWidth="3"
-          fill="none"
-          strokeLinecap="round"
-        />
-      </svg>
     </span>
   );
 }

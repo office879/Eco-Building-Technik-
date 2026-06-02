@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../context/I18nContext";
 import Logo from "./Logo";
 
 const nav = [
@@ -12,13 +13,11 @@ const nav = [
   { to: "/kontakt", label: "Kontakt" },
 ];
 
-const LANGS = ["DE", "EN", "RU", "UA"];
-
 export default function Header() {
   const { count, setIsOpen } = useCart();
+  const { lang, setLang, supported } = useLang();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState("DE");
   const location = useLocation();
 
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center gap-5">
           <div className="flex items-center" data-testid="lang-switcher">
-            {LANGS.map((l) => (
+            {supported.map((l) => (
               <button
                 key={l}
                 onClick={() => setLang(l)}

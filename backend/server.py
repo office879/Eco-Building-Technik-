@@ -96,6 +96,51 @@ IMG_METER = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200
 
 
 SEED_PRODUCTS = [
+    # NEUES PREMIUM-PRODUKT: JNOD JMU50HCINV (Top-Discharge R290, 5-20kW)
+    {"slug": "jnod-jmu50hcinv-r290-top-discharge",
+     "name": "JNOD JMU50HCINV R290 Top-Discharge Wärmepumpe 5–20 kW",
+     "category": "waermepumpen",
+     "short_description": "Premium Top-Discharge Air-Source Wärmepumpe, A+++, R290, vertikale Ausblasrichtung. Heizen, Kühlen & Warmwasser in einem Gerät.",
+     "description": "Die JNOD JMU50HCINV ist eine vollwertige Top-Discharge Air-Source-Wärmepumpe mit vertikaler Luftausblasrichtung — ideal für anspruchsvolle Wohn- und Gewerbe-Installationen.\n\nDank R290-Propangas-Kältemittel (GWP 3) und voller DC-Inverter-Technologie erreicht das Gerät die Energieklasse A+++. Die Heizleistung skaliert von 5 bis 20 kW und deckt damit Einfamilienhäuser bis zu größeren Wohnflächen ab. Drei Funktionen in einem Modul: Hausheizung, Kühlung und Warmwasserbereitung (DHW).\n\nGehäuse aus Edelstahl, Smart-App-Steuerung, GMCC-Verdichter, 3 Jahre Herstellergarantie. CE-Zertifiziert nach EU-Normen. Sprachunterstützung der App: Deutsch, Englisch, Französisch, Niederländisch, Spanisch.\n\nIm Lieferumfang enthalten: Außengerät, Bedienpanel, Installationszubehör, Anleitung. Beratung, individuelle Dimensionierung und Komplett-Installation in Österreich auf Anfrage.",
+     "image": "https://s.alicdn.com/@sc04/kf/H0273071893974846871826ff62cfbf91S.png_960x960q80.jpg",
+     "gallery": [
+         "https://s.alicdn.com/@sc04/kf/H8375fd2a1f464179855ca17c2749f40eE.png_960x960q80.jpg",
+         "https://s.alicdn.com/@sc04/kf/H685c190375ce4a60bce6e2f9aa1540eaY.png_960x960q80.jpg",
+         "https://s.alicdn.com/@sc04/kf/Ha8fd23cad89a475aaeef60c7be2917eef.png_960x960q80.jpg",
+         "https://s.alicdn.com/@sc04/kf/H8606babf9a6045dca3e761a81cd3e0580.png_960x960q80.jpg",
+         "https://s.alicdn.com/@sc04/kf/Hcf0540e5bc1b4982830d23654ac7e544X.png_960x960q80.jpg",
+     ],
+     "featured": True, "badge": "NEU · R290",
+     "price_from": 4890.0,
+     "price_note": "ab € 4.890,– zzgl. MwSt.",
+     "specs": {
+         "Modell": "JNOD JMU50HCINV",
+         "Heizleistung": "5 – 20 kW",
+         "Energieklasse": "A+++ (ErP)",
+         "Kältemittel": "R290 (Propan, GWP 3)",
+         "Funktion": "Heizen + Kühlen + Warmwasser (DHW)",
+         "Verdichter": "GMCC Full DC Inverter",
+         "Spannung": "220–240 V",
+         "Steuerung": "WiFi / App-Control",
+         "Gehäuse": "Edelstahl",
+         "Anwendung": "Wohnen, Hotel, Gewerbe, Garage",
+         "Zertifizierung": "CE / EU-konform",
+         "Garantie": "3 Jahre Hersteller",
+         "Herkunft": "Guangdong, China",
+     },
+     "features": [
+         "A+++ Energieklasse — höchste ErP-Effizienz",
+         "R290 Propan-Kältemittel (GWP 3) — zukunftssicher",
+         "Heizen, Kühlen & Warmwasser in einem Gerät",
+         "Vertikale Ausblasrichtung (Top-Discharge)",
+         "DC Full-Inverter — leise & sparsam",
+         "WiFi / App-Steuerung (DE/EN/FR/NL/ES)",
+         "GMCC-Verdichter — bewährte Qualität",
+         "Edelstahl-Gehäuse — wetterbeständig",
+         "CE-Zertifizierung, 3 Jahre Garantie",
+         "Inkl. Beratung & Komplett-Installation auf Anfrage",
+     ]},
+
     # Wärmepumpen
     {"slug": "jnod-a3-12kw", "name": "JNOD A+++ Wärmepumpe 12kW", "category": "waermepumpen",
      "short_description": "Bestseller für Einfamilienhäuser bis 150m². R32 Kältemittel.",

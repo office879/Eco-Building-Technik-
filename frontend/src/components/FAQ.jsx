@@ -12,11 +12,11 @@ const FAQS = [
   },
   {
     q: "Lohnt sich ein Gas-Brennwertgerät noch im Jahr 2026?",
-    a: "Für Bestandsgebäude mit bestehender Gas-Infrastruktur ist ein modernes Gas-Brennwertgerät weiterhin wirtschaftlich sinnvoll – besonders übergangsweise. Unsere Squirrel M30 Geräte mit 109% Wirkungsgrad und App-Steuerung sparen bis zu 30% gegenüber alten Heizkesseln.",
+    a: "Für Bestandsgebäude mit bestehender Gas-Infrastruktur ist ein modernes Gas-Brennwertgerät weiterhin wirtschaftlich sinnvoll — besonders übergangsweise. Unsere Squirrel M30 Geräte mit 109% Wirkungsgrad und App-Steuerung sparen bis zu 30% gegenüber alten Heizkesseln.",
   },
   {
     q: "Welche Smart Home Systeme sind kompatibel mit Wärmepumpen?",
-    a: "Unsere Wärmepumpen unterstützen Modbus, WiFi und SG-Ready – somit sind sie kompatibel mit Tuya/Smart Life, Home Assistant, Alexa und Google Home. Der GIRIER Zigbee 3.0 Gateway bildet die zentrale Steuereinheit für ein vollständig integriertes Smart Home.",
+    a: "Unsere Wärmepumpen unterstützen Modbus, WiFi und SG-Ready — somit sind sie kompatibel mit Tuya/Smart Life, Home Assistant, Alexa und Google Home. Der GIRIER Zigbee 3.0 Gateway bildet die zentrale Steuereinheit für ein vollständig integriertes Smart Home.",
   },
   {
     q: "Wie hoch ist die Förderung für Wärmepumpen in Österreich?",
@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: "Was ist der Unterschied zwischen Wärmepumpe und Gas-Brennwertgerät?",
-    a: "Wärmepumpen nutzen Umweltenergie (Luft, Erde, Wasser) und erzeugen aus 1 kWh Strom bis zu 5 kWh Wärme – CO₂-frei bei Ökostrom. Gas-Brennwertgeräte verbrennen Erdgas mit ~109% Wirkungsgrad. Wärmepumpen sind langfristig günstiger und nachhaltiger, Gas-Brennwert ist in der Anschaffung günstiger.",
+    a: "Wärmepumpen nutzen Umweltenergie (Luft, Erde, Wasser) und erzeugen aus 1 kWh Strom bis zu 5 kWh Wärme — CO₂-frei bei Ökostrom. Gas-Brennwertgeräte verbrennen Erdgas mit ~109% Wirkungsgrad. Wärmepumpen sind langfristig günstiger und nachhaltiger, Gas-Brennwert ist in der Anschaffung günstiger.",
   },
 ];
 
@@ -32,23 +32,23 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
   return (
     <div className="max-w-4xl mx-auto" data-testid="faq-section">
-      <div className="divide-y divide-zinc-900 border-t border-b border-zinc-900">
+      <div className="divide-y divide-white/10 border-t border-b border-white/10">
         {FAQS.map((f, i) => (
-          <div key={i} className="py-1">
+          <div key={i}>
             <button
               onClick={() => setOpen(open === i ? -1 : i)}
               data-testid={`faq-toggle-${i}`}
-              className="w-full flex items-center justify-between py-6 text-left group"
+              className="w-full flex items-center justify-between py-7 text-left group"
             >
-              <span className={`font-display text-lg md:text-xl font-medium pr-8 ${open===i ? "text-[#00FF66]" : "text-white"} group-hover:text-[#00FF66] transition-colors`}>
+              <span className="font-display text-lg md:text-xl tracking-tight pr-8 transition-opacity group-hover:opacity-70">
                 {f.q}
               </span>
-              <span className={`w-10 h-10 border flex items-center justify-center shrink-0 transition-colors ${open===i ? "border-[#00FF66] bg-[#00FF66]/10" : "border-zinc-800"}`}>
-                {open === i ? <Minus size={14} className="text-[#00FF66]"/> : <Plus size={14}/>}
+              <span className={`w-10 h-10 border flex items-center justify-center shrink-0 transition-colors ${open===i ? "border-white bg-white/10" : "border-white/20"}`}>
+                {open === i ? <Minus size={14}/> : <Plus size={14}/>}
               </span>
             </button>
             {open === i && (
-              <div className="pb-8 pr-16 text-zinc-400 leading-relaxed text-sm md:text-base">
+              <div className="pb-8 pr-16 text-white/65 leading-relaxed text-sm md:text-base">
                 {f.a}
               </div>
             )}

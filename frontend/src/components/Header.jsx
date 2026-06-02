@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X, Zap } from "lucide-react";
+import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const nav = [
@@ -11,10 +11,13 @@ const nav = [
   { to: "/kontakt", label: "Kontakt" },
 ];
 
+const LANGS = ["DE", "EN", "RU", "UA"];
+
 export default function Header() {
   const { count, setIsOpen } = useCart();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState("DE");
   const location = useLocation();
 
   useEffect(() => {
@@ -29,17 +32,17 @@ export default function Header() {
     <header
       data-testid="site-header"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/80 backdrop-blur-xl border-b border-white/10" : "bg-transparent"
+        scrolled ? "bg-[#0B1736]/95 backdrop-blur-xl border-b border-white/10" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link to="/" data-testid="logo-link" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 border border-[#00FF66] flex items-center justify-center group-hover:bg-[#00FF66] transition-colors">
-            <Zap size={16} className="text-[#00FF66] group-hover:text-black" strokeWidth={2.5} />
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-20">
+        <Link to="/" data-testid="logo-link" className="flex items-center gap-3 group">
+          <div className="w-11 h-11 border border-white/40 flex items-center justify-center group-hover:border-white transition-colors">
+            <span className="font-display font-bold text-base">E</span>
           </div>
           <div className="leading-tight">
-            <div className="font-display font-bold text-sm tracking-tight">ECO BUILDING</div>
-            <div className="eyebrow text-[10px]">TECHNIK · A+++</div>
+            <div className="font-display font-bold text-sm tracking-[0.18em]">ECO BUILDING</div>
+            <div className="eyebrow text-[10px] mt-0.5">TECHNIK GMBH</div>
           </div>
         </Link>
 
@@ -50,8 +53,10 @@ export default function Header() {
               to={n.to}
               data-testid={`nav-${n.to.replace("/", "") || "home"}`}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
-                  isActive ? "text-[#00FF66]" : "text-zinc-300 hover:text-white"
+                `text-xs font-semibold tracking-[0.18em] uppercase pb-1 border-b transition-colors ${
+                  isActive
+                    ? "text-white border-white"
+                    : "text-white/70 border-transparent hover:text-white"
                 }`
               }
             >
@@ -60,48 +65,81 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-5">
+          <div className="flex items-center" data-testid="lang-switcher">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                data-testid={`lang-${l.toLowerCase()}`}
+                className={`lang-btn ${lang === l ? "active" : ""}`}
+                aria-label={`Sprache ${l}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={() => setIsOpen(true)}
             data-testid="header-cart-button"
-            className="relative p-2 border border-zinc-800 hover:border-[#00FF66] transition-colors"
+            className="relative w-11 h-11 border border-white/30 hover:border-white flex items-center justify-center transition-colors"
             aria-label="Anfragekorb"
           >
-            <ShoppingCart size={18} />
+            <ShoppingCart size={16} strokeWidth={1.6}/>
             {count > 0 && (
               <span
                 data-testid="cart-count-badge"
-                className="absolute -top-2 -right-2 bg-[#00FF66] text-black text-[10px] font-bold w-5 h-5 flex items-center justify-center"
+                className="absolute -top-1.5 -right-1.5 bg-white text-[#0B1736] text-[10px] font-bold w-5 h-5 flex items-center justify-center"
               >
                 {count}
               </span>
             )}
           </button>
 
+          <Link to="/kontakt" data-testid="header-cta" className="btn-primary text-[11px] !py-3 !px-5">
+            Beratung anfragen
+          </Link>
+        </div>
+
+        <div className="lg:hidden flex items-center gap-2">
+          <button
+            onClick={() => setIsOpen(true)}
+            data-testid="mobile-cart-button"
+            className="relative w-10 h-10 border border-white/30 flex items-center justify-center"
+          >
+            <ShoppingCart size={14}/>
+            {count > 0 && (
+              <span className="absolute -top-1 -right-1 bg-white text-[#0B1736] text-[10px] font-bold w-4 h-4 flex items-center justify-center">{count}</span>
+            )}
+          </button>
           <button
             onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 border border-zinc-800"
+            className="w-10 h-10 border border-white/30 flex items-center justify-center"
             data-testid="mobile-menu-toggle"
             aria-label="Menü"
           >
-            {open ? <X size={18} /> : <Menu size={18} />}
+            {open ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="lg:hidden bg-black border-t border-zinc-900" data-testid="mobile-menu">
-          <nav className="px-6 py-6 flex flex-col gap-4">
+        <div className="lg:hidden bg-[#0B1736] border-t border-white/10" data-testid="mobile-menu">
+          <nav className="px-6 py-6 flex flex-col gap-1">
             {nav.map((n) => (
               <NavLink
                 key={n.to}
                 to={n.to}
-                className="text-base py-2 border-b border-zinc-900"
+                className="text-xs uppercase tracking-[0.18em] py-4 border-b border-white/10"
                 data-testid={`mobile-nav-${n.to.replace("/", "") || "home"}`}
               >
                 {n.label}
               </NavLink>
             ))}
+            <Link to="/kontakt" className="btn-primary mt-6 justify-center" data-testid="mobile-cta">
+              Beratung anfragen
+            </Link>
           </nav>
         </div>
       )}

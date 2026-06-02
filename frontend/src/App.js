@@ -6,6 +6,7 @@ import { CartProvider } from "./context/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
+import CookieBanner from "./components/CookieBanner";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -15,7 +16,7 @@ import EnergyPage from "./pages/EnergyPage";
 
 function App() {
   return (
-    <div className="App grain" data-testid="app-root">
+    <div className="App" data-testid="app-root">
       <CartProvider>
         <BrowserRouter>
           <Header />
@@ -32,17 +33,18 @@ function App() {
           </main>
           <Footer />
           <CartDrawer />
+          <CookieBanner />
         </BrowserRouter>
         <Toaster
           theme="dark"
           position="top-right"
           toastOptions={{
             style: {
-              background: "#0A0A0A",
-              border: "1px solid #00FF66",
+              background: "#0B1736",
+              border: "1px solid rgba(255,255,255,0.2)",
               borderRadius: 0,
               color: "#fff",
-              fontFamily: "Manrope, sans-serif",
+              fontFamily: "Inter, sans-serif",
             },
           }}
         />

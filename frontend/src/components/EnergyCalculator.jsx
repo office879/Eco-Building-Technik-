@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Calculator, TrendingDown } from "lucide-react";
+import { TrendingDown } from "lucide-react";
 
 const TYPES = [
   { key: "altbau", label: "Altbau", sub: "bis 1995", w: 120 },
@@ -23,8 +23,8 @@ export default function EnergyCalculator() {
   const result = useMemo(() => {
     const t = TYPES.find((x) => x.key === type);
     const s = SOURCES.find((x) => x.key === source);
-    const heatLoad = (t.w * area) / 1000; // kW
-    const annualKwh = heatLoad * 1800; // 1800 Vollbenutzungsstunden Heizen
+    const heatLoad = (t.w * area) / 1000;
+    const annualKwh = heatLoad * 1800;
     const currentCost = annualKwh * s.price;
     const wpCost = annualKwh * 0.075;
     const saving = Math.max(0, currentCost - wpCost);
@@ -39,16 +39,12 @@ export default function EnergyCalculator() {
   }, [type, area, source]);
 
   return (
-    <div className="bg-[#0F0F0F] border border-zinc-900 overflow-hidden" data-testid="energy-calculator">
+    <div className="border border-white/10" data-testid="energy-calculator">
       <div className="grid grid-cols-1 lg:grid-cols-5">
-        {/* Inputs */}
-        <div className="lg:col-span-3 p-8 lg:p-12">
-          <div className="flex items-center gap-2 mb-6">
-            <Calculator size={16} className="text-[#00FF66]" />
-            <span className="eyebrow">Energie-Rechner</span>
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight mb-10">
-            Berechnen Sie Ihre<br/>Heizkosten-Ersparnis.
+        <div className="lg:col-span-3 p-10 lg:p-14 border-r border-white/10">
+          <div className="eyebrow mb-8">Energie-Rechner</div>
+          <h2 className="font-display text-3xl md:text-4xl tracking-tight mb-12">
+            Berechnen Sie Ihre<br/><span className="italic-accent text-4xl md:text-5xl">Heizkosten-Ersparnis.</span>
           </h2>
 
           <div className="space-y-10">
@@ -61,12 +57,12 @@ export default function EnergyCalculator() {
                     onClick={() => setType(t.key)}
                     data-testid={`calc-type-${t.key}`}
                     className={`border p-4 text-left transition-all ${
-                      type === t.key ? "border-[#00FF66] bg-[#00FF66]/5" : "border-zinc-800 hover:border-zinc-700"
+                      type === t.key ? "border-white bg-white/5" : "border-white/15 hover:border-white/40"
                     }`}
                   >
                     <div className="font-medium text-sm">{t.label}</div>
-                    <div className="text-[10px] text-zinc-500 mt-1">{t.sub}</div>
-                    <div className="font-mono text-xs text-[#00FF66] mt-2">{t.w} W/m²</div>
+                    <div className="text-[10px] text-white/50 mt-1">{t.sub}</div>
+                    <div className="text-xs text-white/70 mt-2 tracking-wider">{t.w} W/m²</div>
                   </button>
                 ))}
               </div>
@@ -75,19 +71,15 @@ export default function EnergyCalculator() {
             <div>
               <div className="flex items-center justify-between mb-3">
                 <div className="eyebrow">Wohnfläche</div>
-                <div className="font-mono text-[#00FF66]">{area} m²</div>
+                <div className="text-white tabular-nums">{area} m²</div>
               </div>
               <input
-                type="range"
-                min={50}
-                max={500}
-                step={10}
-                value={area}
-                onChange={(e) => setArea(Number(e.target.value))}
+                type="range" min={50} max={500} step={10}
+                value={area} onChange={(e) => setArea(Number(e.target.value))}
                 data-testid="calc-area-slider"
-                className="w-full accent-[#00FF66]"
+                className="w-full accent-white"
               />
-              <div className="flex justify-between mt-1 text-[10px] text-zinc-500 font-mono">
+              <div className="flex justify-between mt-1 text-[10px] text-white/40 uppercase tracking-wider">
                 <span>50 m²</span><span>500 m²</span>
               </div>
             </div>
@@ -101,11 +93,11 @@ export default function EnergyCalculator() {
                     onClick={() => setSource(s.key)}
                     data-testid={`calc-source-${s.key}`}
                     className={`border p-3 text-left transition-all ${
-                      source === s.key ? "border-[#00FF66] bg-[#00FF66]/5" : "border-zinc-800 hover:border-zinc-700"
+                      source === s.key ? "border-white bg-white/5" : "border-white/15 hover:border-white/40"
                     }`}
                   >
                     <div className="font-medium text-sm">{s.label}</div>
-                    <div className="font-mono text-[10px] text-zinc-500 mt-1">€{s.price.toFixed(2)}/kWh</div>
+                    <div className="text-[10px] text-white/50 mt-1">€{s.price.toFixed(2)}/kWh</div>
                   </button>
                 ))}
               </div>
@@ -113,46 +105,38 @@ export default function EnergyCalculator() {
           </div>
         </div>
 
-        {/* Results */}
-        <div className="lg:col-span-2 bg-black p-8 lg:p-12 border-t lg:border-t-0 lg:border-l border-zinc-900">
-          <div className="eyebrow mb-6">Ergebnis</div>
-
-          <div className="space-y-6">
+        <div className="lg:col-span-2 p-10 lg:p-14">
+          <div className="eyebrow mb-8">Ergebnis</div>
+          <div className="space-y-7">
             <div>
-              <div className="text-xs text-zinc-500 mb-1">Heizlast</div>
-              <div className="font-display text-4xl font-semibold" data-testid="calc-heatload">{result.heatLoad} kW</div>
-              <div className="text-xs text-zinc-500 mt-1">Empfohlen: {result.wpTarget}</div>
+              <div className="text-xs text-white/50 uppercase tracking-wider mb-2">Heizlast</div>
+              <div className="font-display text-4xl" data-testid="calc-heatload">{result.heatLoad} kW</div>
+              <div className="text-xs text-white/50 mt-1">Empfohlen: {result.wpTarget}</div>
             </div>
-
             <div className="hline"/>
-
             <div>
-              <div className="text-xs text-zinc-500 mb-1">Jahresverbrauch</div>
-              <div className="font-display text-2xl font-medium" data-testid="calc-kwh">{result.annualKwh.toLocaleString()} kWh</div>
+              <div className="text-xs text-white/50 uppercase tracking-wider mb-2">Jahresverbrauch</div>
+              <div className="font-display text-2xl" data-testid="calc-kwh">{result.annualKwh.toLocaleString()} kWh</div>
             </div>
-
             <div className="hline"/>
-
             <div>
-              <div className="text-xs text-zinc-500 mb-1">Kosten aktuell</div>
-              <div className="font-display text-2xl font-medium text-zinc-400" data-testid="calc-current">
-                € {result.currentCost.toLocaleString()}<span className="text-sm text-zinc-600">/Jahr</span>
+              <div className="text-xs text-white/50 uppercase tracking-wider mb-2">Kosten aktuell</div>
+              <div className="font-display text-2xl text-white/70" data-testid="calc-current">
+                € {result.currentCost.toLocaleString()}<span className="text-sm text-white/40">/Jahr</span>
               </div>
             </div>
-
             <div>
-              <div className="text-xs text-[#00FF66] mb-1">Mit Wärmepumpe</div>
-              <div className="font-display text-2xl font-medium" data-testid="calc-wp">
-                € {result.wpCost.toLocaleString()}<span className="text-sm text-zinc-500">/Jahr</span>
+              <div className="text-xs text-white/50 uppercase tracking-wider mb-2">Mit Wärmepumpe</div>
+              <div className="font-display text-2xl" data-testid="calc-wp">
+                € {result.wpCost.toLocaleString()}<span className="text-sm text-white/50">/Jahr</span>
               </div>
             </div>
-
-            <div className="p-5 border border-[#00FF66] bg-[#00FF66]/5">
-              <div className="flex items-center gap-2 mb-1">
-                <TrendingDown size={14} className="text-[#00FF66]"/>
-                <span className="eyebrow text-[#00FF66]">Ersparnis/Jahr</span>
+            <div className="p-6 border border-white bg-white/5">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingDown size={14}/>
+                <span className="eyebrow text-white">Ersparnis/Jahr</span>
               </div>
-              <div className="font-display text-3xl font-bold text-[#00FF66]" data-testid="calc-saving">
+              <div className="font-display text-3xl" data-testid="calc-saving">
                 € {result.saving.toLocaleString()}
               </div>
             </div>

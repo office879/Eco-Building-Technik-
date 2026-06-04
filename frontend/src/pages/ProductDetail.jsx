@@ -53,7 +53,19 @@ export default function ProductDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 border border-white/10">
           <div className="lg:col-span-7 bg-[#0E1A3E] border-b lg:border-b-0 lg:border-r border-white/10">
-            {product.video_url ? (
+            {product.youtube_id ? (
+              <div className="aspect-[4/3] relative overflow-hidden bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${product.youtube_id}?rel=0&modestbranding=1&iv_load_policy=3&controls=1&showinfo=0&color=white&playsinline=1`}
+                  title={product.name}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                  data-testid="product-youtube"
+                />
+              </div>
+            ) : product.video_url ? (
               <div className="aspect-[4/3] relative overflow-hidden bg-black">
                 <video
                   src={product.video_url}

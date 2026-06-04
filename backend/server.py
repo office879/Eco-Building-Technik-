@@ -33,6 +33,7 @@ class Product(BaseModel):
     image: str
     gallery: List[str] = []
     video_url: Optional[str] = None
+    youtube_id: Optional[str] = None
     specs: dict = {}
     features: List[str] = []
     featured: bool = False
@@ -402,6 +403,7 @@ SEED_PRODUCTS = [
      "short_description": "Premium 10-Zoll OEM Tuya Wand-Panel mit Touchscreen, Drehregler und integrierter Thermostat-Anzeige.",
      "description": "Das OEM Tuya 10\" Smart Home Touch-Panel ist die professionelle Lösung für High-End Smart-Home-Installationen. Großer 10-Zoll Touchscreen für Lichtfarben-Auswahl (RGB Color-Wheel), Temperatur-Anzeige (Thermostat-Drehregler) und Szenen-Steuerung in einem Premium Glas-Gehäuse.\n\nKompatibel mit dem Tuya/Smart Life Ökosystem — bedient Beleuchtung, Heizung, Klima, Vorhänge und Audio aus einer zentralen Wand-Einheit. Eingebauter Drehregler mit Ring-LED-Beleuchtung für intuitive Temperatur-Anpassung.\n\nHersteller: Shenzhen Corunsmart Co., Ltd. Perfekt für moderne Wohnzimmer, Eingänge, Hotels und Premium-Gewerbe-Installationen.",
      "image": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/zuw6p7ww_inbound2626227008196014833.jpg",
+     "youtube_id": "Nd5y9z4I0ng",
      "featured": True, "badge": "PREMIUM 10\"",
      "price_note": "Preis auf Anfrage · ab € 299",
      "specs": {

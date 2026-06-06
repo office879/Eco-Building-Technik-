@@ -78,9 +78,17 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - [x] Neue Dictionary-Keys: `shop.*`, `pd.*`, `card.*`, `footer.*`, fehlende Kategorien (`gas-brennwert`, `beleuchtung`, `energiemanagement`)
 - [x] Verifiziert via Screenshots DE/EN/RU/UA
 
+### v5 (2026-06-06) — i18n Rollout About / Contact / Energy / Cookie-Banner
+- [x] **About.jsx**: Eyebrow, H1 (mit Italic-Accent-Split), Intro, Mission-Section, CTA "Get consultation now", 4 Werte-Cards (Nachhaltig/Persönlich/Qualität/Aus einer Hand) — DE/EN/RU/UA
+- [x] **Contact.jsx**: Eyebrow, H1, Intro, Direktkontakt-Labels (Adresse/Mobil/E-Mail/Öffnungszeiten), Formular (Placeholder, Submit-Button, Sending-State), Success-View ("Danke für Ihre Nachricht."), Toast-Messages (Erfolg/Fehler)
+- [x] **EnergyPage.jsx** + **EnergyCalculator.jsx**: Hero, Calculator-Labels (Gebäudetyp/Wohnfläche/Energiequelle/Ergebnis/Heizlast/Empfohlen/Jahresverbrauch/Kosten aktuell/Mit Wärmepumpe/Ersparnis), Gebäudetypen (Altbau/Neubau/KfW/Passivhaus) + Subs, Energiequellen (Strom/Gas/Öl/Wärmepumpe), Next-Step-CTA
+- [x] **CookieBanner.jsx**: Title, Heading, Text, Accept-Button, Read-Privacy-Link, Close-Aria-Label
+- [x] Neue Dictionary-Keys: ~90 zusätzliche Einträge (`about.*`, `contact.*`, `energy.*`, `calc.*`, `cookie.*`)
+- [x] **Testing-Agent v3 verifiziert** (iteration_3.json): Alle Translation-Keys lösen sich auf, Language-Switcher persistiert, Cookie-Banner-Accept schreibt localStorage, Energy-Calculator-Interaktionen funktionieren, kein Regress auf Shop/PD/Footer/Header
+
 ## P1/P2 Backlog (remaining)
-- Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
-- Restliche statische Seiten i18n: About-Page, Contact-Page, Energy-Calculator (Cookie-Banner ist bereits hardcoded DE)
+- Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen, **User stellt URL-Liste später bereit**). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
+- Optional: AdminDashboard, AdminLogin, CheckoutSuccess, CheckoutCancel, CartDrawer i18n nachziehen (aktuell DE)
 - Resend API-Key beschaffen + Domain verifizieren für echte Mail-Zustellung an `office@eco-building.tech`
 - Refactor: `server.py` (1250 Zeilen) in `routes/`, `models/`, `seed/` aufsplitten
 - 401-Interceptor in `api.js` der bei abgelaufenem Token localStorage räumt

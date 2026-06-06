@@ -5,20 +5,20 @@ import { useCart } from "../context/CartContext";
 import { useLang } from "../context/I18nContext";
 import Logo from "./Logo";
 
-const nav = [
-  { to: "/", label: "Start" },
-  { to: "/shop", label: "Shop" },
-  { to: "/energie-rechner", label: "Energie-Rechner" },
-  { to: "/ueber-uns", label: "Über uns" },
-  { to: "/kontakt", label: "Kontakt" },
-];
-
 export default function Header() {
   const { count, setIsOpen } = useCart();
-  const { lang, setLang, supported } = useLang();
+  const { lang, setLang, supported, t } = useLang();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const nav = [
+    { to: "/", label: t("nav.start"), key: "start" },
+    { to: "/shop", label: t("nav.shop"), key: "shop" },
+    { to: "/energie-rechner", label: t("nav.energy"), key: "energy" },
+    { to: "/ueber-uns", label: t("nav.about"), key: "about" },
+    { to: "/kontakt", label: t("nav.contact"), key: "contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -49,7 +49,7 @@ export default function Header() {
             <NavLink
               key={n.to}
               to={n.to}
-              data-testid={`nav-${n.to.replace("/", "") || "home"}`}
+            data-testid={`nav-${n.key === "start" ? "home" : n.key}`}
               className={({ isActive }) =>
                 `text-xs font-semibold tracking-[0.18em] uppercase pb-1 border-b transition-colors ${
                   isActive
@@ -96,7 +96,7 @@ export default function Header() {
           </button>
 
           <Link to="/kontakt" data-testid="header-cta" className="btn-primary text-[11px] !py-3 !px-5">
-            Beratung anfragen
+            {t("cta.consult")}
           </Link>
         </div>
 
@@ -130,13 +130,13 @@ export default function Header() {
                 key={n.to}
                 to={n.to}
                 className="text-xs uppercase tracking-[0.18em] py-4 border-b border-white/10"
-                data-testid={`mobile-nav-${n.to.replace("/", "") || "home"}`}
+                data-testid={`mobile-nav-${n.key === "start" ? "home" : n.key}`}
               >
                 {n.label}
               </NavLink>
             ))}
             <Link to="/kontakt" className="btn-primary mt-6 justify-center" data-testid="mobile-cta">
-              Beratung anfragen
+              {t("cta.consult")}
             </Link>
           </nav>
         </div>

@@ -1,0 +1,46 @@
+{
+  "summary": "End-to-end testing of new admin auth + admin CRUD + EN/RU/UA i18n features. Backend: 23/23 pytest passing (auth login/me, token validation, admin inquiries/contacts/products CRUD, JNOD slug+Lieferzeit specs, public endpoints, graceful empty RESEND_API_KEY). Frontend: admin login redirects to /admin, dashboard renders with all 3 tabs (Anfragen/Kontakte/Produkte), full product CRUD via UI works (create + edit + delete confirm dialog), logout clears token and protected route redirects unauthenticated visits back to /admin/login. i18n: EN ('Home/Shop' + 'Discover products' CTA), RU ('Главная' + 'Смотреть продукты'), UA ('Головна' + 'Дивитися продукти') all working AND persist via localStorage after reload.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/admin/inquiries", "issue": "Returns plain list (not Pydantic model). Acceptable but inconsistent with other endpoints — consider InquiryOut response_model for OpenAPI schema completeness."},
+      {"endpoint": "/api/admin/products PUT", "issue": "After update returns merged dict directly converted back to Product model; created_at re-parsed from isoformat string — works but a bit fragile. No bug observed."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "AdminDashboard product editor", "issues": ["Editor opens inline pushing list down (no modal/scroll-to-view). On long lists user has to scroll up to find the form after clicking 'Neues Produkt'."]},
+      {"screen": "AdminDashboard", "issues": ["When token is present from prior session but expired, page silently shows a transient 403 console error before redirecting — harmless but noisy. Consider clearing localStorage token on 401/403 in api.js interceptor."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_admin_auth.py",
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_admin_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Add api.js global 401 interceptor that clears 'ecobt_admin_token' and redirects to /admin/login to silence the 403 console error on stale tokens.",
+    "(Optional) Wrap ProductEditor in a sticky panel or scroll into view on open so the form is visible immediately on click.",
+    "Carry over from iteration 1: several product images still 404 (Squirrel M30 25/30/35kW, Smart LED-Streifen 5m, Smart LED-Deckenleuchte 36W, Smart LED-Lampe E27/GU10). Replace seed image URLs.",
+    "Carry over from iteration 1: add data-testid='cart-button' to header cart icon and data-testids to /shop category filter chips."
+  ],
+  "critical_code_review_comments": [
+    "/app/backend/server.py is now ~1250 lines and contains models, seed data, public + admin routes, and auth wiring all in one file — should be split into routers/ (admin.py, products.py, auth.py), models.py, seed/.",
+    "JWT secret is hardcoded into backend/.env at 96 hex chars — good entropy. Bcrypt is used correctly via passlib alternative (bcrypt lib). seed_admin is idempotent and updates password hash if ADMIN_PASSWORD changes. ✓",
+    "make_require_admin verifies role=='admin' on every protected request via DB lookup — adds latency. Acceptable for current scale; consider caching role into JWT payload to avoid the per-request db.users.find_one.",
+    "send_inquiry_email correctly logs 'RESEND_API_KEY not set — skipping email notification' and never raises; inquiry POST stays 200. ✓",
+    "ProductUpdate model omits 'slug' which is correct (slug is the route param and treated as immutable on PUT)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_admin_auth.py (new)"
+  ],
+  "success_rate": {"backend": "100% (23/23)", "frontend": "100% (admin CRUD + i18n persist all pass)"},
+  "test_credentials": "admin@eco-building.tech / u_pIzUzKdOGLdSNg1xY (seeded via ADMIN_EMAIL/ADMIN_PASSWORD env on backend startup, see /app/memory/test_credentials.md)",
+  "seed_data_creation": "Test products are created with slug 'test-admin-product' and deleted by tests. Pytest creates TEST_-prefixed inquiries and contacts via existing /api/inquiries and /api/contact endpoints.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests live in /app/backend/tests/test_admin_auth.py (admin/auth) and /app/backend/tests/backend_test.py (public). Run with REACT_APP_BACKEND_URL exported. Admin token is stored in localStorage key 'ecobt_admin_token'. Language preference is persisted in localStorage (key likely 'ecobt_lang') and survives reload. Only Header/Home hero are translated — other pages remain in German (acceptable for P2 scope). Resend API key intentionally empty in .env — inquiry creation logs 'RESEND_API_KEY not set' and still returns 200. JNOD heat pump slugs (5 new ones) all resolve and contain specs.Lieferzeit.",
+  "rca of the issue": "No critical issues to RCA. The only observable noise was a transient 403 from /api/auth/me when an expired token sits in localStorage — root cause: api.js does not clear stale tokens on 401/403. Mitigation: add a response interceptor that clears localStorage['ecobt_admin_token'] when /api/auth/me returns 401/403."
+}

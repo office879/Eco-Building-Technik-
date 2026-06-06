@@ -4,10 +4,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { CartProvider } from "./context/CartContext";
 import { I18nProvider } from "./context/I18nContext";
+import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import CookieBanner from "./components/CookieBanner";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -17,11 +19,14 @@ import EnergyPage from "./pages/EnergyPage";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import AGB from "./pages/AGB";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
     <div className="App" data-testid="app-root">
       <I18nProvider>
+        <AuthProvider>
         <CartProvider>
           <BrowserRouter>
             <Header />
@@ -36,6 +41,8 @@ function App() {
                 <Route path="/impressum" element={<Impressum />} />
                 <Route path="/datenschutz" element={<Datenschutz />} />
                 <Route path="/agb" element={<AGB />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
                 <Route path="*" element={<Home />} />
               </Routes>
             </main>
@@ -57,6 +64,7 @@ function App() {
             }}
           />
         </CartProvider>
+        </AuthProvider>
       </I18nProvider>
     </div>
   );

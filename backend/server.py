@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, BackgroundTasks
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -13,6 +13,12 @@ from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+from auth import (
+    LoginRequest, LoginResponse, UserOut,
+    verify_password, create_access_token, make_require_admin, seed_admin,
+)
+from email_service import send_inquiry_email
 
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -1080,11 +1086,13 @@ async def get_product(slug: str):
 
 
 @api_router.post("/inquiries", response_model=Inquiry)
-async def create_inquiry(data: InquiryCreate):
+async def create_inquiry(data: InquiryCreate, background_tasks: BackgroundTasks):
     obj = Inquiry(**data.model_dump())
     doc = obj.model_dump()
     doc["created_at"] = doc["created_at"].isoformat()
     await db.inquiries.insert_one(doc)
+    # Fire-and-forget email notification
+    background_tasks.add_task(send_inquiry_email, doc)
     return obj
 
 
@@ -1103,6 +1111,107 @@ async def stats():
     return {"products": total, "categories": len(CATEGORIES)}
 
 
+# ============ Auth ============
+require_admin = make_require_admin(db)
+
+
+@api_router.post("/auth/login", response_model=LoginResponse)
+async def login(data: LoginRequest):
+    email = data.email.lower().strip()
+    user = await db.users.find_one({"email": email})
+    if not user or not verify_password(data.password, user.get("password_hash", "")):
+        raise HTTPException(status_code=401, detail="E-Mail oder Passwort falsch")
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Keine Admin-Berechtigung")
+    token = create_access_token(user["id"], user["email"])
+    return LoginResponse(
+        token=token,
+        user=UserOut(id=user["id"], email=user["email"], name=user.get("name", "Admin"), role=user.get("role", "admin")),
+    )
+
+
+@api_router.get("/auth/me", response_model=UserOut)
+async def me(user: dict = Depends(require_admin)):
+    return UserOut(id=user["id"], email=user["email"], name=user.get("name", "Admin"), role=user.get("role", "admin"))
+
+
+@api_router.post("/auth/logout")
+async def logout(user: dict = Depends(require_admin)):
+    # Stateless JWT — client just discards token.
+    return {"ok": True}
+
+
+# ============ Admin: Inquiries & Contacts ============
+@api_router.get("/admin/inquiries")
+async def admin_list_inquiries(user: dict = Depends(require_admin)):
+    docs = await db.inquiries.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return docs
+
+
+@api_router.delete("/admin/inquiries/{inquiry_id}")
+async def admin_delete_inquiry(inquiry_id: str, user: dict = Depends(require_admin)):
+    res = await db.inquiries.delete_one({"id": inquiry_id})
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Anfrage nicht gefunden")
+    return {"ok": True}
+
+
+@api_router.get("/admin/contacts")
+async def admin_list_contacts(user: dict = Depends(require_admin)):
+    docs = await db.contacts.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return docs
+
+
+# ============ Admin: Product CRUD ============
+class ProductUpdate(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    short_description: Optional[str] = None
+    description: Optional[str] = None
+    image: Optional[str] = None
+    gallery: Optional[List[str]] = None
+    video_url: Optional[str] = None
+    youtube_id: Optional[str] = None
+    specs: Optional[dict] = None
+    features: Optional[List[str]] = None
+    featured: Optional[bool] = None
+    badge: Optional[str] = None
+    price_from: Optional[float] = None
+    price_note: Optional[str] = None
+
+
+@api_router.post("/admin/products", response_model=Product)
+async def admin_create_product(data: Product, user: dict = Depends(require_admin)):
+    if await db.products.find_one({"slug": data.slug}):
+        raise HTTPException(status_code=409, detail="Slug existiert bereits")
+    doc = data.model_dump()
+    doc["created_at"] = doc["created_at"].isoformat()
+    await db.products.insert_one(doc)
+    return data
+
+
+@api_router.put("/admin/products/{slug}", response_model=Product)
+async def admin_update_product(slug: str, data: ProductUpdate, user: dict = Depends(require_admin)):
+    existing = await db.products.find_one({"slug": slug}, {"_id": 0})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Produkt nicht gefunden")
+    update = {k: v for k, v in data.model_dump(exclude_unset=True).items() if v is not None}
+    if update:
+        await db.products.update_one({"slug": slug}, {"$set": update})
+    merged = {**existing, **update}
+    if isinstance(merged.get("created_at"), str):
+        merged["created_at"] = datetime.fromisoformat(merged["created_at"])
+    return merged
+
+
+@api_router.delete("/admin/products/{slug}")
+async def admin_delete_product(slug: str, user: dict = Depends(require_admin)):
+    res = await db.products.delete_one({"slug": slug})
+    if res.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Produkt nicht gefunden")
+    return {"ok": True}
+
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -1119,6 +1228,9 @@ logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 async def startup_seed():
+    # Seed admin user
+    await seed_admin(db)
+    # Seed products
     count = await db.products.count_documents({})
     if count == 0:
         logger.info(f"Seeding {len(SEED_PRODUCTS)} products...")

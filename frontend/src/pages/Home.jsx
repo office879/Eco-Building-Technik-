@@ -6,6 +6,7 @@ import EnergyCalculator from "../components/EnergyCalculator";
 import FAQ from "../components/FAQ";
 import VideoFeature from "../components/VideoFeature";
 import { fetchProducts } from "../lib/api";
+import { useLang } from "../context/I18nContext";
 
 const HERO_VIDEO = "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/q1nbilbz_74089e90-a0ba-4dd9-816e-392ee56c9f9b-h264-hd.mp4";
 const HERO_POSTER = "https://images.unsplash.com/photo-1638008313433-11ce583a90d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBob3VzZSUyMGV4dGVyaW9yJTIwbmlnaHR8ZW58MHx8fHwxNzc4MTI3ODEwfDA&ixlib=rb-4.1.0&q=85";
@@ -38,6 +39,7 @@ const MARQUEE_ITEMS = [
 
 export default function Home() {
   const [featured, setFeatured] = useState([]);
+  const { t } = useLang();
 
   useEffect(() => {
     fetchProducts({ featured: true }).then(setFeatured).catch(() => {});
@@ -50,25 +52,23 @@ export default function Home() {
         <div className="absolute inset-0 bg-[#0B1736]" />
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full pt-32 pb-16">
           <div className="reveal-up">
-            <div className="eyebrow mb-8">Nachhaltige Gebäudetechnik · A+++</div>
+            <div className="eyebrow mb-8">{t("hero.eyebrow")}</div>
             <h1 className="font-display text-[64px] md:text-[110px] lg:text-[140px] leading-[0.92] tracking-[-0.03em]">
               ECO BUILDING<br/>
               <span className="italic-accent text-[72px] md:text-[125px] lg:text-[160px]">Technik.</span>
             </h1>
             <p className="mt-12 max-w-3xl text-base md:text-lg text-white/70 leading-relaxed">
-              Fachbetrieb für Heizung, Kälte, Lüftung, Smart Home und Energiemanagement —
-              werkseitig geplant, hocheffizient installiert und in nachhaltige Gebäude integriert.
-              Mit persönlicher Beratung und individueller Angebotserstellung in Ebreichsdorf, Österreich.
+              {t("hero.subtitle")}
             </p>
             <div className="mt-12 flex flex-wrap gap-4 items-center">
               <Link to="/shop" className="btn-primary" data-testid="hero-shop-btn">
-                Produkte entdecken <ArrowRight size={14}/>
+                {t("cta.discover")} <ArrowRight size={14}/>
               </Link>
               <Link to="/kontakt" className="btn-ghost" data-testid="hero-contact-btn">
-                Beratung anfragen
+                {t("cta.consult")}
               </Link>
               <Link to="/energie-rechner" className="ml-2 text-[11px] tracking-[0.15em] uppercase text-white/60 hover:text-white transition-colors flex items-center gap-2" data-testid="hero-calc-link">
-                Energie-Rechner <ArrowUpRight size={12}/>
+                {t("cta.calc")} <ArrowUpRight size={12}/>
               </Link>
             </div>
           </div>

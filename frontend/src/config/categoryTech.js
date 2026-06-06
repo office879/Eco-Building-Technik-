@@ -127,6 +127,8 @@ export const CATEGORY_TECH = {
   "smart-home": {
     accent: "#22d3ee",
     schematic: "smart-home-mesh",
+    video: "https://customer-assets.emergentagent.com/job_royal-bautraeger/artifacts/axlia9er_ECO%20BuildingTechnikGmbH%20%281%29.mp4",
+    videoPoster: "https://images.unsplash.com/photo-1770843244931-9e6d4d1055be?crop=entropy&cs=srgb&fm=jpg&w=1600&q=85",
     eyebrow: L("Smart Home · Mesh-Netzwerk", "Smart Home · Mesh Network", "Умный дом · Mesh-сеть", "Розумний дім · Mesh-мережа"),
     title: L("Drei Protokolle,", "Three Protocols,", "Три протокола,", "Три протоколи,"),
     italic: L("ein System.", "one system.", "одна система.", "одна система."),

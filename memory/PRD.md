@@ -96,6 +96,12 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - [x] **Obsolete YouTube-Files entfernt**: `CategoryVideoFeature.jsx`, `config/categoryVideos.js`
 - [x] **Testing-Agent v3 verifiziert** (iteration_4.json): Backend 39/39 Tests pass, alle 5 neuen Slugs liefern 200, Tech-Explainer rendert auf allen 6 Kategorien (kein YouTube-iframe), i18n DE/EN/RU/UA bestätigt, 0 Issues
 
+### v7 (2026-06-06) — ECO Building Technik Original-Film in Smart Home
+- [x] **Eigenes ECO Building Technik MP4-Video** (axlia9er_ECO BuildingTechnikGmbH (1).mp4, 33 MB) aus dem Royalhouse-Partner-Page-Asset in den `CategoryTechExplainer` integriert
+- [x] Video erscheint NUR auf der Smart-Home-Kategorie (`/shop?cat=smart-home`) und auf der Home-Page (eingebetteter Smart-Home-Block) — autoplay, muted, loop, controls, mit Original-Film-Badge "ECO BUILDING TECHNIK · ORIGINAL-FILM"
+- [x] `config.video` und `config.videoPoster` in categoryTech.js — andere Kategorien bleiben nur SVG-Schema
+- [x] Smoke-Test bestätigt: Video lädt mit korrekter Source-URL und Poster
+
 ## P1/P2 Backlog (remaining)
 - Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen, **User stellt URL-Liste später bereit**). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
 - Optional: AdminDashboard, AdminLogin, CheckoutSuccess, CheckoutCancel, CartDrawer i18n nachziehen (aktuell DE)

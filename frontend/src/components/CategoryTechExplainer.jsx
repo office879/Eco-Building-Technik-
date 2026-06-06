@@ -59,6 +59,30 @@ export default function CategoryTechExplainer({ config, categoryKey }) {
           </Link>
         </div>
 
+        {/* In-house video (only when config.video present) */}
+        {config.video && (
+          <div className="mb-10 border border-white/10 bg-black overflow-hidden relative" data-testid={`category-tech-video-${categoryKey}`}>
+            <div className="aspect-video md:aspect-[21/9] relative">
+              <video
+                src={config.video}
+                poster={config.videoPoster}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                controls
+                className="absolute inset-0 w-full h-full object-cover"
+                data-testid={`category-tech-video-el-${categoryKey}`}
+              />
+              <div className="pointer-events-none absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-[#0B1736]/80 backdrop-blur-sm border border-white/10 text-[10px] tracking-[0.18em] uppercase z-10">
+                <Sparkles size={11} style={{ color: accent }}/>
+                <span className="text-white/80">ECO Building Technik · Original-Film</span>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Schematic + Steps */}
         <div className="grid grid-cols-1 lg:grid-cols-12 border border-white/10 bg-[#0E1A3E]/30">
           <div className="lg:col-span-7 border-b lg:border-b-0 lg:border-r border-white/10 relative">

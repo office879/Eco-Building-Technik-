@@ -1,0 +1,45 @@
+{
+  "summary": "Iteration 4 — Backend regression + Tech Explainer + new ECO Warmwasser products + i18n verified. Backend 39/39 tests pass (16 backend_test.py + 23 test_admin_auth.py). All 5 new ECO product slugs return 200 with valid schema; total product count is 64. Home page shows new hero (KI-Gebäudeautomation · A+++), new subtitle (KNX/BACnet/Modbus, 30% Energieverbrauch), intro stats (596/1 Mio./56), and marquee with 'KI-optimierte Steuerung' + '596 Wärmepumpen-Projekte'. Smart-Home tech-explainer is embedded on / with CTA 'SMART HOME ANSEHEN' that navigates to /shop?cat=smart-home. All 6 category pages (waermepumpen, gas-brennwert, smart-home, beleuchtung, energiemanagement, wasser) render the proprietary CategoryTechExplainer with SVG schematic, 4 process steps (tech-step-1..4), and 6 tech-spec cells (tech-spec-0..5). ZERO YouTube iframes detected anywhere. i18n confirmed in DE/EN/RU/UA — tech explainer titles, steps and specs translate cleanly (no raw key leaks). New product detail eco-r290-full-inverter-luft-wasser renders correctly with R290, Full Inverter, and 'ab 4.510 €'. Image audit on /shop found 1 broken (zero-byte) image out of 64.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "ProductCard / Shop grid",
+        "issue": "Product 'smart-panel-ceiling-speakers-set' has a broken image — the asset returns HTTP 200 but with content-length: 0 (zero-byte JPEG). naturalWidth=0 in browser. Card shows alt text + broken icon overlay.",
+        "selector": "img[src*='jqbgbiqx_inbound5008988608539284716.jpg']",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_admin_auth.py",
+    "/app/test_reports/pytest/pytest_results.xml",
+    "/app/test_reports/pytest/pytest_admin_results.xml"
+  ],
+  "action_items": [
+    "Replace broken image for product slug 'smart-panel-ceiling-speakers-set' in /app/backend/server.py — current URL is a zero-byte file: https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/jqbgbiqx_inbound5008988608539284716.jpg",
+    "(Optional, naming consistency) Schematic data-testids in CategoryTechExplainer.jsx use short names (schematic-heatpump, schematic-boiler, schematic-smarthome, schematic-lighting, schematic-energy, schematic-water) rather than the schematic config keys (heat-pump-cycle, condensing-boiler, smart-home-mesh, lighting-spectrum, energy-flow, water-filter). Visual rendering works fine — only impacts test-suite predictability. Either align names or document the mapping."
+  ],
+  "critical_code_review_comments": [
+    "CategoryTechExplainer.jsx is ~470 lines and renders 6 large inline SVGs. As more categories or animation variants are added, consider extracting each Schematic{Type}() into /components/schematics/*.jsx so the main file stays focused on layout + i18n binding.",
+    "categoryTech.js holds 4-language strings inline alongside the schematic config. Currently OK at ~250 lines, but should be split to /config/i18n/categoryTech.{de,en,ru,uk}.json once the catalogue grows past 8 categories, mirroring the I18nContext concern from iteration 3.",
+    "Broken image URL slipped past seed because it returns HTTP 200 (zero-byte). Recommend adding a backend seed-time guard that HEAD-checks each product image and logs a WARN if content-length is 0 or status is not 200. Cheap, prevents silent regressions on user-provided assets.",
+    "Five new ECO Warmwasser products are seeded with `created_at` timestamps in 2026 (June) — fine for sort order, but make sure seed_products() is idempotent and won't keep re-stamping created_at on restart (verified: it skips if slug exists, so OK)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py  (updated product count to 64, added parametrized tests for 5 new ECO slugs and presence-in-list test)"
+  ],
+  "success_rate": {
+    "backend": "100% (39/39 tests pass)",
+    "frontend": "98% (1 broken image out of 64 products; all critical flows, i18n, navigation and removal of YouTube videos verified)"
+  },
+  "test_credentials": "admin@eco-building.tech / u_pIzUzKdOGLdSNg1xY (from /app/memory/test_credentials.md, verified via test_admin_auth.py)",
+  "seed_data_creation": "Backend tests create one TEST_ inquiry, one TEST_ contact, and a temporary admin product (created → updated → deleted in the same test).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Stack: 64 seeded products (was 34; +5 ECO Warmwasser slugs prefixed 'eco-'). Tech explainer component lives at /app/frontend/src/components/CategoryTechExplainer.jsx and reads /app/frontend/src/config/categoryTech.js (DE/EN/RU/UA inline). CategoryVideoFeature.jsx and config/categoryVideos.js are REMOVED — no YouTube anywhere. Schematic data-testids are short (schematic-heatpump/boiler/smarthome/lighting/energy/water), not the kebab-case schematic key. Home hero copy and marquee come from I18nContext keys hero.eyebrow / hero.subtitle / marquee.*. localStorage keys remain: ecobt_lang_v1, ecobt_cookie_ack_v1, ecobt_admin_token. Specs field in API is a dict (object), NOT an array — keep this in mind for assertions.",
+  "rca of the issue": "Broken image RCA: The S3-style asset at customer-assets.emergentagent.com/.../jqbgbiqx_inbound5008988608539284716.jpg responds 200 OK but with Content-Length: 0 — the upload pipeline saved a zero-byte file. Browser sets img.naturalWidth=0 → ProductCard shows alt text. Reproduction: curl -sI <url> | grep -i content-length → '0'. Mitigation: re-upload the multiroom panel image and update SEED_PRODUCTS entry for slug 'smart-panel-ceiling-speakers-set' in /app/backend/server.py (or add a startup HEAD-check that warns on 0-byte / 404 images)."
+}

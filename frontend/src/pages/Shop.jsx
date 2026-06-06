@@ -2,8 +2,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import ProductCard from "../components/ProductCard";
-import CategoryVideoFeature from "../components/CategoryVideoFeature";
-import { CATEGORY_VIDEOS } from "../config/categoryVideos";
+import CategoryTechExplainer from "../components/CategoryTechExplainer";
+import { CATEGORY_TECH } from "../config/categoryTech";
 import { fetchProducts, fetchCategories } from "../lib/api";
 import { useLang } from "../context/I18nContext";
 
@@ -92,8 +92,8 @@ export default function Shop() {
         </div>
       </section>
 
-      {active !== "all" && CATEGORY_VIDEOS[active] && (
-        <CategoryVideoFeature config={CATEGORY_VIDEOS[active]} categoryKey={active} />
+      {active !== "all" && CATEGORY_TECH[active] && (
+        <CategoryTechExplainer config={CATEGORY_TECH[active]} categoryKey={active} />
       )}
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">

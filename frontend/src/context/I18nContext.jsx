@@ -26,12 +26,12 @@ const DICT = {
   "cta.calc":         { DE: "Energie-Rechner", EN: "Energy Calculator", RU: "Калькулятор", UA: "Калькулятор" },
 
   // Hero
-  "hero.eyebrow":     { DE: "Nachhaltige Gebäudetechnik · A+++", EN: "Sustainable Building Technology · A+++", RU: "Устойчивые инженерные системы · A+++", UA: "Сталі інженерні системи · A+++" },
+  "hero.eyebrow":     { DE: "KI-Gebäudeautomation · A+++ Hochleistungsgeräte", EN: "AI Building Automation · A+++ High-Performance", RU: "ИИ-автоматизация зданий · A+++", UA: "ШІ-автоматизація будівель · A+++" },
   "hero.subtitle":    {
-    DE: "Fachbetrieb für Heizung, Kälte, Lüftung, Smart Home und Energiemanagement — werkseitig geplant, hocheffizient installiert und in nachhaltige Gebäude integriert.",
-    EN: "Specialist for heating, cooling, ventilation, smart home and energy management — factory-planned, highly efficiently installed and integrated into sustainable buildings.",
-    RU: "Специалисты по отоплению, кондиционированию, вентиляции, умному дому и энергоменеджменту — заводское проектирование, высокоэффективный монтаж и интеграция в устойчивые здания.",
-    UA: "Спеціалісти з опалення, кондиціонування, вентиляції, розумного дому та енергоменеджменту — заводське проєктування, високоефективний монтаж та інтеграція в сталі будівлі.",
+    DE: "ECO Building Technik plant, liefert und integriert modernste A+++ Wärmepumpen und Energiesysteme — kombiniert mit KI-gestützter Steuerung über KNX, BACnet und Modbus. Bis zu 30 % weniger Energieverbrauch, BIM-integriert, dauerhaft optimiert.",
+    EN: "ECO Building Technik plans, supplies and integrates state-of-the-art A+++ heat pumps and energy systems — combined with AI-driven control via KNX, BACnet and Modbus. Up to 30 % less energy consumption, BIM-integrated, continuously optimised.",
+    RU: "ECO Building Technik проектирует, поставляет и интегрирует современные тепловые насосы A+++ и энергосистемы — с управлением на базе ИИ через KNX, BACnet и Modbus. До 30 % меньше энергопотребление, BIM-интеграция, постоянная оптимизация.",
+    UA: "ECO Building Technik проєктує, постачає та інтегрує сучасні теплові насоси A+++ та енергосистеми — з керуванням на основі ШІ через KNX, BACnet та Modbus. До 30 % менше енергоспоживання, BIM-інтеграція, постійна оптимізація.",
   },
 
   // Categories

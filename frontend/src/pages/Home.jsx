@@ -5,8 +5,8 @@ import ProductCard from "../components/ProductCard";
 import EnergyCalculator from "../components/EnergyCalculator";
 import FAQ from "../components/FAQ";
 import VideoFeature from "../components/VideoFeature";
-import CategoryVideoFeature from "../components/CategoryVideoFeature";
-import { CATEGORY_VIDEOS } from "../config/categoryVideos";
+import CategoryTechExplainer from "../components/CategoryTechExplainer";
+import { CATEGORY_TECH } from "../config/categoryTech";
 import { fetchProducts } from "../lib/api";
 import { useLang } from "../context/I18nContext";
 
@@ -31,11 +31,12 @@ const SERVICES = [
 
 const MARQUEE_ITEMS = [
   "A+++ Energieeffizienz",
+  "KI-optimierte Steuerung",
   "Klimaförderung bis € 5.000",
-  "14 Tage Rückgaberecht",
-  "Kostenlose Fachberatung",
-  "WiFi & Zigbee 3.0",
+  "596 Wärmepumpen-Projekte",
   "BIM-integriert",
+  "KNX · BACnet · Modbus",
+  "1 Mio. m² realisiert",
   "Wien & DACH",
 ];
 
@@ -113,18 +114,25 @@ export default function Home() {
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-28 lg:py-40">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
-            <div className="eyebrow mb-6">Auftrag</div>
+            <div className="eyebrow mb-6">Positionierung</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.05]">
-              Haustechnik,<br/>die <span className="italic-accent">einfach funktioniert.</span>
+              Spezialisierter<br/><span className="italic-accent">KI-Systemintegrator.</span>
             </h2>
+            <p className="text-[11px] tracking-[0.18em] uppercase text-white/45 mt-6">
+              Kein Installationsbetrieb.
+            </p>
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
             <p className="text-base md:text-lg text-white/70 leading-relaxed">
-              ECO Building Technik plant, liefert und installiert die komplette Haustechnik —
-              von A+++ Wärmepumpen und Gas-Brennwertgeräten über intelligente Lüftungs- und Beleuchtungssysteme
-              bis zu vollintegrierten Smart-Home-Lösungen. Jede Komponente wird vorab geprüft, dimensioniert
-              und vor Ort präzise installiert. Auf der Baustelle entsteht so ein nahtloses Plug-and-Play.
+              ECO Building Technik plant, liefert und integriert modernste A+++ Wärmepumpen- und Energiesysteme —
+              kombiniert mit KI-gestützter Steuerung und BIM-basierter Systemplanung. Heizung, Warmwasser und
+              Strom werden datenbasiert geregelt, automatisch optimiert und dauerhaft energieeffizient betrieben.
             </p>
+            <div className="grid grid-cols-3 gap-px bg-white/10 border border-white/10 mt-10">
+              <Stat k="Wärmepumpen-Projekte" v="596" />
+              <Stat k="Realisierte m²" v="1 Mio." />
+              <Stat k="Business-Partner" v="56" />
+            </div>
             <Link to="/shop" className="inline-flex items-center gap-2 mt-10 text-[12px] tracking-[0.18em] uppercase font-semibold border-b border-white/40 pb-2 hover:border-white" data-testid="intro-shop-link">
               Mehr im Produktkatalog <ArrowUpRight size={14}/>
             </Link>
@@ -179,7 +187,7 @@ export default function Home() {
       {/* Video Feature */}
       <VideoFeature/>
 
-      <CategoryVideoFeature config={CATEGORY_VIDEOS["smart-home"]} categoryKey="smart-home"/>
+      <CategoryTechExplainer config={CATEGORY_TECH["smart-home"]} categoryKey="smart-home"/>
 
       {/* Split feature */}
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pb-28">

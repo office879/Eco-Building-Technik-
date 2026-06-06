@@ -34,16 +34,48 @@ def test_categories(client):
 
 
 # --- Products ---
-def test_products_list_seeded_34(client):
+def test_products_list_seeded_64(client):
     r = client.get(f"{API}/products")
     assert r.status_code == 200
     data = r.json()
     assert isinstance(data, list)
-    assert len(data) == 34, f"expected 34 products, got {len(data)}"
+    assert len(data) == 64, f"expected 64 products, got {len(data)}"
     # validate fields
     p = data[0]
     for k in ("id", "slug", "name", "category", "price_from"):
         assert k in p
+
+
+# --- New ECO Warmwasser products (iteration 4) ---
+NEW_ECO_SLUGS = [
+    "eco-luft-wasser-wp-wifi",
+    "eco-all-in-one-warmwasser-boiler",
+    "eco-luft-wasser-wp-warmwasser",
+    "eco-r290-full-inverter-luft-wasser",
+    "eco-heizung-kuehlung-haushalts-warmwasser",
+]
+
+
+@pytest.mark.parametrize("slug", NEW_ECO_SLUGS)
+def test_new_eco_product_detail(client, slug):
+    r = client.get(f"{API}/products/{slug}")
+    assert r.status_code == 200, f"{slug} -> {r.status_code}"
+    p = r.json()
+    assert p["slug"] == slug
+    assert "name" in p and isinstance(p["name"], str) and len(p["name"]) > 0
+    assert "image" in p
+    # specs is a dict mapping label -> value; features is a list
+    assert "specs" in p and isinstance(p["specs"], dict) and len(p["specs"]) > 0
+    assert "features" in p and isinstance(p["features"], list) and len(p["features"]) > 0
+    assert "price_note" in p or "price_from" in p
+
+
+def test_all_new_eco_slugs_in_list(client):
+    r = client.get(f"{API}/products")
+    assert r.status_code == 200
+    slugs = {p["slug"] for p in r.json()}
+    for s in NEW_ECO_SLUGS:
+        assert s in slugs, f"missing slug {s}"
 
 
 def test_products_filter_category_waermepumpen(client):

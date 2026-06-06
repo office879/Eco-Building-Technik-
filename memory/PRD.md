@@ -70,9 +70,17 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - Backend: 100% (23/23 pytest in `/app/backend/tests/test_admin_auth.py`) — login, /me, admin inquiries/contacts/products CRUD, JNOD slugs, graceful email skip
 - Frontend: 100% — Admin login flow, CRUD UI, ProtectedRoute redirect, EN/RU/UA i18n persistence
 
+### v4 (2026-06-06) — i18n Rollout Shop / ProductDetail / Footer / ProductCard
+- [x] **Shop.jsx**: Headline, Subtitle, Netto-Disclaimer, Kategorie-Label, Such-Placeholder, Loading/Empty, Kategorie-Filter (cat.* keys) — alle 4 Sprachen (DE/EN/RU/UA)
+- [x] **ProductDetail.jsx**: Back-Link, Preis-Section, Netto-Hinweis, Beschreibung/Specs-Header, "Zur Anfrage"-CTA, Related-Title, Toast-Message
+- [x] **Footer.jsx**: Company-Description, Tags, Navigation, Kontakt-Labels (Adresse/Mobil/E-Mail/Web), Copyright, Impressum/Datenschutz/AGB
+- [x] **ProductCard.jsx**: Kategorie-Label via `cat.${category}`, "Anfrage"-Button, Netto-Hinweis, Toast
+- [x] Neue Dictionary-Keys: `shop.*`, `pd.*`, `card.*`, `footer.*`, fehlende Kategorien (`gas-brennwert`, `beleuchtung`, `energiemanagement`)
+- [x] Verifiziert via Screenshots DE/EN/RU/UA
+
 ## P1/P2 Backlog (remaining)
-- Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~30 weitere URLs offen). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
-- Komplette Übersetzung der restlichen Seiten (Shop-Filter, ProductDetail-Specs, About, Contact, Footer) — Dictionary-Keys liegen bereit
+- Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
+- Restliche statische Seiten i18n: About-Page, Contact-Page, Energy-Calculator (Cookie-Banner ist bereits hardcoded DE)
 - Resend API-Key beschaffen + Domain verifizieren für echte Mail-Zustellung an `office@eco-building.tech`
 - Refactor: `server.py` (1250 Zeilen) in `routes/`, `models/`, `seed/` aufsplitten
 - 401-Interceptor in `api.js` der bei abgelaufenem Token localStorage räumt

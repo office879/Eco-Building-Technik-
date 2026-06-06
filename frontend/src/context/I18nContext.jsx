@@ -35,26 +35,65 @@ const DICT = {
   },
 
   // Categories
-  "cat.all":          { DE: "Alle Produkte", EN: "All products", RU: "Все продукты", UA: "Усі продукти" },
-  "cat.waermepumpen": { DE: "Wärmepumpen", EN: "Heat pumps", RU: "Тепловые насосы", UA: "Теплові насоси" },
-  "cat.smarthome":    { DE: "Smart Home", EN: "Smart Home", RU: "Умный дом", UA: "Розумний дім" },
-  "cat.smart-home":   { DE: "Smart Home", EN: "Smart Home", RU: "Умный дом", UA: "Розумний дім" },
-  "cat.wasser":       { DE: "Wasser", EN: "Water", RU: "Вода", UA: "Вода" },
-  "cat.gasthermen":   { DE: "Gasthermen", EN: "Gas boilers", RU: "Газовые котлы", UA: "Газові котли" },
-  "cat.heizung":      { DE: "Heizung", EN: "Heating", RU: "Отопление", UA: "Опалення" },
-  "cat.filter":       { DE: "Filter", EN: "Filters", RU: "Фильтры", UA: "Фільтри" },
+  "cat.all":              { DE: "Alle Produkte", EN: "All products", RU: "Все продукты", UA: "Усі продукти" },
+  "cat.waermepumpen":     { DE: "Wärmepumpen", EN: "Heat pumps", RU: "Тепловые насосы", UA: "Теплові насоси" },
+  "cat.smarthome":        { DE: "Smart Home", EN: "Smart Home", RU: "Умный дом", UA: "Розумний дім" },
+  "cat.smart-home":       { DE: "Smart Home", EN: "Smart Home", RU: "Умный дом", UA: "Розумний дім" },
+  "cat.wasser":           { DE: "Wasser", EN: "Water", RU: "Вода", UA: "Вода" },
+  "cat.gasthermen":       { DE: "Gasthermen", EN: "Gas boilers", RU: "Газовые котлы", UA: "Газові котли" },
+  "cat.gas-brennwert":    { DE: "Gas-Brennwert", EN: "Gas Condensing", RU: "Газовые конденсационные", UA: "Газові конденсаційні" },
+  "cat.beleuchtung":      { DE: "Beleuchtung", EN: "Lighting", RU: "Освещение", UA: "Освітлення" },
+  "cat.energiemanagement":{ DE: "Energiemanagement", EN: "Energy Management", RU: "Энергоменеджмент", UA: "Енергоменеджмент" },
+  "cat.heizung":          { DE: "Heizung", EN: "Heating", RU: "Отопление", UA: "Опалення" },
+  "cat.filter":           { DE: "Filter", EN: "Filters", RU: "Фильтры", UA: "Фільтри" },
 
   // Shop
-  "shop.title":       { DE: "Shop", EN: "Shop", RU: "Магазин", UA: "Магазин" },
-  "shop.filter":      { DE: "Filter", EN: "Filter", RU: "Фильтр", UA: "Фільтр" },
-  "shop.empty":       { DE: "Keine Produkte gefunden.", EN: "No products found.", RU: "Продукты не найдены.", UA: "Продуктів не знайдено." },
-  "shop.allCategories": { DE: "Alle", EN: "All", RU: "Все", UA: "Усі" },
+  "shop.title":           { DE: "Shop", EN: "Shop", RU: "Магазин", UA: "Магазин" },
+  "shop.eyebrowProducts": { DE: "Produkte", EN: "Products", RU: "Продукты", UA: "Продукти" },
+  "shop.headline1":       { DE: "Produkt", EN: "Product", RU: "Каталог", UA: "Каталог" },
+  "shop.headline2":       { DE: "katalog.", EN: "catalog.", RU: "продуктов.", UA: "продуктів." },
+  "shop.subtitle":        {
+    DE: "Premium-Gebäudetechnik von A+++ Wärmepumpen bis Zigbee 3.0 Smart Home. Alle Produkte auf Anfrage mit kostenloser Fachberatung und individuellem Angebot.",
+    EN: "Premium building technology from A+++ heat pumps to Zigbee 3.0 smart home. All products available on request with free expert consultation and individual offer.",
+    RU: "Премиальные инженерные системы — от тепловых насосов A+++ до Zigbee 3.0 умного дома. Все продукты по запросу с бесплатной экспертной консультацией и индивидуальным предложением.",
+    UA: "Преміальна інженерна техніка — від теплових насосів A+++ до Zigbee 3.0 розумного дому. Усі продукти на запит з безкоштовною експертною консультацією та індивідуальною пропозицією.",
+  },
+  "shop.nettoDisclaimer": {
+    DE: "Alle Preise verstehen sich Netto · zzgl. 20 % MwSt. (B2B & Fachbetriebs-Konditionen)",
+    EN: "All prices are net · plus 20% VAT (B2B & trade conditions)",
+    RU: "Все цены указаны нетто · плюс 20% НДС (B2B и условия для специалистов)",
+    UA: "Усі ціни вказані нетто · плюс 20% ПДВ (B2B та фахові умови)",
+  },
+  "shop.categoryLabel":   { DE: "Kategorie", EN: "Category", RU: "Категория", UA: "Категорія" },
+  "shop.searchPlaceholder":{ DE: "Suchen...", EN: "Search...", RU: "Поиск...", UA: "Пошук..." },
+  "shop.loading":         { DE: "Lade Produkte...", EN: "Loading products...", RU: "Загрузка продуктов...", UA: "Завантаження продуктів..." },
+  "shop.empty":           { DE: "Keine Produkte gefunden.", EN: "No products found.", RU: "Продукты не найдены.", UA: "Продуктів не знайдено." },
+  "shop.allCategories":   { DE: "Alle", EN: "All", RU: "Все", UA: "Усі" },
+  "shop.filter":          { DE: "Filter", EN: "Filter", RU: "Фильтр", UA: "Фільтр" },
 
-  // Product
-  "product.specs":    { DE: "Technische Daten", EN: "Specifications", RU: "Характеристики", UA: "Характеристики" },
-  "product.features": { DE: "Merkmale", EN: "Features", RU: "Особенности", UA: "Особливості" },
-  "product.delivery": { DE: "Lieferzeit", EN: "Delivery time", RU: "Срок поставки", UA: "Термін постачання" },
-  "product.gallery":  { DE: "Galerie", EN: "Gallery", RU: "Галерея", UA: "Галерея" },
+  // Product Detail
+  "pd.back":              { DE: "Zurück zum Shop", EN: "Back to shop", RU: "Назад в магазин", UA: "Назад до магазину" },
+  "pd.loading":           { DE: "Laden...", EN: "Loading...", RU: "Загрузка...", UA: "Завантаження..." },
+  "pd.price":             { DE: "Preis", EN: "Price", RU: "Цена", UA: "Ціна" },
+  "pd.netto":             { DE: "Netto · zzgl. 20 % MwSt.", EN: "Net · plus 20% VAT", RU: "Нетто · плюс 20% НДС", UA: "Нетто · плюс 20% ПДВ" },
+  "pd.priceNote":         {
+    DE: "Individuelles Angebot inkl. Förderung & Installation · B2B-Konditionen verfügbar",
+    EN: "Individual offer incl. subsidy & installation · B2B conditions available",
+    RU: "Индивидуальное предложение, включая субсидии и установку · доступны B2B-условия",
+    UA: "Індивідуальна пропозиція з урахуванням субсидій та монтажу · доступні B2B-умови",
+  },
+  "pd.description":       { DE: "Beschreibung", EN: "Description", RU: "Описание", UA: "Опис" },
+  "pd.specs":             { DE: "Technische Daten", EN: "Specifications", RU: "Характеристики", UA: "Характеристики" },
+  "pd.addToCart":         { DE: "Zur Anfrage", EN: "Add to inquiry", RU: "В запрос", UA: "До запиту" },
+  "pd.related1":          { DE: "Passende", EN: "Related", RU: "Похожие", UA: "Подібні" },
+  "pd.related2":          { DE: "Produkte.", EN: "products.", RU: "продукты.", UA: "продукти." },
+  "pd.seeAllIn":          { DE: "Alle", EN: "All", RU: "Все", UA: "Усі" },
+  "pd.toastAdded":        { DE: "zur Anfrage hinzugefügt", EN: "added to inquiry", RU: "добавлено в запрос", UA: "додано до запиту" },
+
+  // Product Card
+  "card.inquire":         { DE: "Anfrage", EN: "Inquire", RU: "Запрос", UA: "Запит" },
+  "card.netto":           { DE: "Netto · zzgl. 20 % MwSt.", EN: "Net · plus 20% VAT", RU: "Нетто · плюс 20% НДС", UA: "Нетто · плюс 20% ПДВ" },
+  "card.toastAdded":      { DE: "zur Anfrage hinzugefügt", EN: "added to inquiry", RU: "добавлено в запрос", UA: "додано до запиту" },
 
   // Cart / Inquiry
   "cart.title":       { DE: "Anfragekorb", EN: "Inquiry cart", RU: "Корзина запросов", UA: "Кошик запитів" },
@@ -69,8 +108,26 @@ const DICT = {
   "form.message":     { DE: "Nachricht", EN: "Message", RU: "Сообщение", UA: "Повідомлення" },
 
   // Footer
-  "footer.rights":    { DE: "Alle Rechte vorbehalten.", EN: "All rights reserved.", RU: "Все права защищены.", UA: "Усі права захищені." },
-  "footer.legal":     { DE: "Rechtliches", EN: "Legal", RU: "Юридическая информация", UA: "Правова інформація" },
+  "footer.companyDesc": {
+    DE: "ECO Building Technik GmbH plant, liefert und installiert nachhaltige Gebäudetechnik — von A+++ Wärmepumpen über Gas-Brennwertgeräte bis hin zu Smart-Home- und Energiemanagement-Systemen. Fachbetrieb mit persönlicher Beratung in Ebreichsdorf, Österreich.",
+    EN: "ECO Building Technik GmbH plans, supplies and installs sustainable building technology — from A+++ heat pumps through gas condensing units to smart home and energy management systems. Specialist company with personal consulting in Ebreichsdorf, Austria.",
+    RU: "ECO Building Technik GmbH проектирует, поставляет и устанавливает устойчивые инженерные системы — от тепловых насосов A+++ до газовых конденсационных котлов, систем умного дома и энергоменеджмента. Специализированная компания с персональной консультацией в Эбрайхсдорфе, Австрия.",
+    UA: "ECO Building Technik GmbH проєктує, постачає та встановлює сталі інженерні системи — від теплових насосів A+++ до газових конденсаційних котлів, систем розумного дому та енергоменеджменту. Спеціалізована компанія з персональною консультацією в Ебрайхсдорфі, Австрія.",
+  },
+  "footer.tag.energy":  { DE: "A+++ Energie", EN: "A+++ Energy", RU: "Энергия A+++", UA: "Енергія A+++" },
+  "footer.tag.subsidy": { DE: "Förderung € 5.000", EN: "Subsidy € 5,000", RU: "Субсидия € 5 000", UA: "Субсидія € 5 000" },
+  "footer.tag.location":{ DE: "Wien-Österreich", EN: "Vienna-Austria", RU: "Вена-Австрия", UA: "Відень-Австрія" },
+  "footer.navigation":  { DE: "Navigation", EN: "Navigation", RU: "Навигация", UA: "Навігація" },
+  "footer.contact":     { DE: "Kontakt", EN: "Contact", RU: "Контакты", UA: "Контакти" },
+  "footer.address":     { DE: "Adresse", EN: "Address", RU: "Адрес", UA: "Адреса" },
+  "footer.mobile":      { DE: "Mobil", EN: "Mobile", RU: "Мобильный", UA: "Мобільний" },
+  "footer.web":         { DE: "Internet", EN: "Web", RU: "Сайт", UA: "Сайт" },
+  "footer.copyright":   { DE: "Alle Rechte vorbehalten.", EN: "All rights reserved.", RU: "Все права защищены.", UA: "Усі права захищені." },
+  "footer.rights":      { DE: "Alle Rechte vorbehalten.", EN: "All rights reserved.", RU: "Все права защищены.", UA: "Усі права захищені." },
+  "footer.legal":       { DE: "Rechtliches", EN: "Legal", RU: "Юридическая информация", UA: "Правова інформація" },
+  "footer.impressum":   { DE: "Impressum", EN: "Imprint", RU: "Выходные данные", UA: "Вихідні дані" },
+  "footer.privacy":     { DE: "Datenschutz", EN: "Privacy", RU: "Конфиденциальность", UA: "Конфіденційність" },
+  "footer.terms":       { DE: "AGB", EN: "Terms", RU: "Условия", UA: "Умови" },
 };
 
 export const I18nProvider = ({ children }) => {

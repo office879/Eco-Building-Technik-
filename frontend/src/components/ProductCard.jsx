@@ -2,25 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useLang } from "../context/I18nContext";
 import { toast } from "sonner";
-
-const CAT_LABELS = {
-  "waermepumpen": "Wärmepumpen",
-  "gas-brennwert": "Gas-Brennwert",
-  "smart-home": "Smart Home",
-  "beleuchtung": "Beleuchtung",
-  "energiemanagement": "Energiemanagement",
-  "wasser": "Wasser",
-};
 
 export default function ProductCard({ product }) {
   const { addItem } = useCart();
+  const { t } = useLang();
+
+  const catLabel = t(`cat.${product.category}`, product.category);
 
   const handleAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addItem(product);
-    toast.success(`${product.name} zur Anfrage hinzugefügt`);
+    toast.success(`${product.name} ${t("card.toastAdded")}`);
   };
 
   return (
@@ -41,7 +36,7 @@ export default function ProductCard({ product }) {
         </div>
       </div>
       <div className="p-6">
-        <div className="eyebrow mb-3">{CAT_LABELS[product.category] || product.category}</div>
+        <div className="eyebrow mb-3">{catLabel}</div>
         <h3 className="font-display text-lg leading-tight tracking-tight mb-3 group-hover:opacity-80 transition-opacity">
           {product.name}
         </h3>
@@ -52,7 +47,7 @@ export default function ProductCard({ product }) {
           <div className="flex flex-col">
             <span className="text-[11px] tracking-[0.12em] uppercase text-white/45">{product.price_note}</span>
             {product.price_note && /€|EUR|\d/.test(product.price_note) && !/netto/i.test(product.price_note) && (
-              <span className="text-[9px] tracking-[0.15em] uppercase text-white/30 mt-0.5">Netto · zzgl. 20 % MwSt.</span>
+              <span className="text-[9px] tracking-[0.15em] uppercase text-white/30 mt-0.5">{t("card.netto")}</span>
             )}
           </div>
           <button
@@ -60,7 +55,7 @@ export default function ProductCard({ product }) {
             data-testid={`add-to-cart-${product.slug}`}
             className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase font-semibold text-white hover:opacity-80 transition-opacity"
           >
-            <Plus size={13} strokeWidth={2}/> Anfrage
+            <Plus size={13} strokeWidth={2}/> {t("card.inquire")}
           </button>
         </div>
       </div>

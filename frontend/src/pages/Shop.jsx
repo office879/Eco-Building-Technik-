@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import CategoryVideoFeature from "../components/CategoryVideoFeature";
 import { CATEGORY_VIDEOS } from "../config/categoryVideos";
 import { fetchProducts, fetchCategories } from "../lib/api";
+import { useLang } from "../context/I18nContext";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -14,6 +15,7 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useLang();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -45,25 +47,24 @@ export default function Shop() {
   return (
     <div className="pt-32 pb-20" data-testid="shop-page">
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-12 border-b border-white/10">
-        <div className="eyebrow mb-6">Shop · {products.length} Produkte</div>
+        <div className="eyebrow mb-6">{t("shop.title")} · {products.length} {t("shop.eyebrowProducts")}</div>
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95]">
-          Produkt<span className="italic-accent">katalog.</span>
+          {t("shop.headline1")}<span className="italic-accent">{t("shop.headline2")}</span>
         </h1>
         <p className="mt-8 max-w-2xl text-base md:text-lg text-white/65 leading-relaxed">
-          Premium-Gebäudetechnik von A+++ Wärmepumpen bis Zigbee 3.0 Smart Home.
-          Alle Produkte auf Anfrage mit kostenloser Fachberatung und individuellem Angebot.
+          {t("shop.subtitle")}
         </p>
         <div className="mt-6 inline-flex items-center gap-3 border border-white/20 px-4 py-2.5 text-[11px] tracking-[0.15em] uppercase" data-testid="netto-disclaimer">
           <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-          <span className="text-white/90">Alle Preise verstehen sich Netto · zzgl. 20 % MwSt. (B2B & Fachbetriebs-Konditionen)</span>
+          <span className="text-white/90">{t("shop.nettoDisclaimer")}</span>
         </div>
       </section>
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-10">
         <div className="flex flex-col md:flex-row md:items-center gap-5 mb-8">
-          <div className="eyebrow shrink-0">Kategorie</div>
+          <div className="eyebrow shrink-0">{t("shop.categoryLabel")}</div>
           <div className="flex-1 flex flex-wrap gap-2">
-            <button onClick={() => setCat("all")} className={`btn-pill ${active === "all" ? "active" : ""}`} data-testid="filter-all">Alle</button>
+            <button onClick={() => setCat("all")} className={`btn-pill ${active === "all" ? "active" : ""}`} data-testid="filter-all">{t("shop.allCategories")}</button>
             {cats.map((c) => (
               <button
                 key={c.key}
@@ -71,14 +72,14 @@ export default function Shop() {
                 data-testid={`filter-${c.key}`}
                 className={`btn-pill ${active === c.key ? "active" : ""}`}
               >
-                {c.name}
+                {t(`cat.${c.key}`, c.name)}
               </button>
             ))}
           </div>
           <div className="relative shrink-0">
             <input
               type="text" value={search} onChange={(e) => setSearch(e.target.value)}
-              placeholder="Suchen..."
+              placeholder={t("shop.searchPlaceholder")}
               className="bg-transparent border border-white/15 hover:border-white/30 focus:border-white text-sm px-4 py-3 w-full md:w-64 outline-none transition-colors"
               data-testid="shop-search"
             />
@@ -97,9 +98,9 @@ export default function Shop() {
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
         {loading ? (
-          <div className="py-24 text-center text-white/50 text-sm tracking-[0.15em] uppercase" data-testid="shop-loading">Lade Produkte...</div>
+          <div className="py-24 text-center text-white/50 text-sm tracking-[0.15em] uppercase" data-testid="shop-loading">{t("shop.loading")}</div>
         ) : filtered.length === 0 ? (
-          <div className="py-24 text-center text-white/50" data-testid="shop-empty">Keine Produkte gefunden.</div>
+          <div className="py-24 text-center text-white/50" data-testid="shop-empty">{t("shop.empty")}</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {filtered.map((p) => <ProductCard key={p.id} product={p}/>)}

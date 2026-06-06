@@ -310,7 +310,7 @@ SEED_PRODUCTS = [
 
     {"slug": "kronoterm-essenta",
      "name": "Kronoterm ESSENTA — Europas effizienteste Warmwasser-Wärmepumpe",
-     "category": "wasser",
+     "category": "waermepumpen",
      "short_description": "Europas effizienteste Warmwasser-Wärmepumpe. Bis 80% Stromersparnis vs. Boiler.",
      "description": "Die ESSENTA ist Europas effizienteste Warmwasser-Wärmepumpe — designed und entwickelt von Kronoterm. Heizt Brauchwasser mit Umgebungsluft statt direkt mit Strom: bis zu 80% weniger Stromverbrauch gegenüber konventionellen Elektroboilern.\n\nVerfügbar mit 180–300 L integriertem Speicher. Smart-App-Steuerung, Anti-Legionellen-Programm, leiser Betrieb. Ideal als Ersatz für alte Elektroboiler oder Gas-Brauchwassergeräte. Schnelle Amortisation: 3–5 Jahre.\n\nKombinierbar mit PV-Überschussladung — perfekt für Häuser mit Photovoltaik.",
      "image": "https://kronoterm.eu/wp-content/uploads/2026/05/WIP-Utility-2-e1779087735297.jpg",
@@ -344,7 +344,7 @@ SEED_PRODUCTS = [
     # ============================================
     {"slug": "jnod-water-heater-200l",
      "name": "JNOD All-in-One Warmwasser-Wärmepumpe 200L",
-     "category": "wasser",
+     "category": "waermepumpen",
      "short_description": "Schlanke All-in-One Warmwasser-Wärmepumpe mit integriertem 200L-Speicher. Smart-Display, leise, energieeffizient.",
      "description": "Die JNOD All-in-One Warmwasser-Wärmepumpe verbindet Wärmepumpentechnologie mit einem integrierten 200L-Edelstahl-Speicher in einem schlanken, modernen Gehäuse. Ideal für Wohnungen, Einfamilienhäuser und Badezimmer-Installationen mit anspruchsvoller Optik.\n\nIntegriertes LCD-Touch-Display zeigt aktuelle Wasser- und Set-Temperatur sowie Uhrzeit. WiFi-fähig — Steuerung per App, Anti-Legionellen-Programm, PV-Überschussladung. Sehr leiser Betrieb (≤42 dB(A)) macht die Installation auch in Wohnräumen möglich.\n\nA+++ Energieeffizienz mit COP bis 4,2 — bis zu 75% Stromersparnis gegenüber konventionellen Elektroboilern.",
      "image": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/7wlncn5g_Hbd595fc58d8f46c2a8b6062bdceb17bd8.jpg",
@@ -960,7 +960,7 @@ SEED_PRODUCTS = [
 
     {"slug": "jnod-j12hw200v2-acs-200l-all-in-one",
      "name": "JNOD J12HW200V2 ACS Brauchwasser-Wärmepumpe 200L",
-     "category": "wasser",
+     "category": "waermepumpen",
      "short_description": "Brauchwasser-Wärmepumpe mit 200L Edelstahl-Speicher, R290, Solar-Anbindung möglich.",
      "description": "Kompakte All-in-One Brauchwasser-Wärmepumpe (Aerotermo / Bomba de Calor ACS) mit 200L Edelstahl-Speicher. Speziell für den häuslichen Warmwasserbedarf entwickelt. R290 Kältemittel, hoher COP von 3.0, Solar-Hybrid-Anbindung möglich. Ideal als Ergänzung zur PV-Anlage.",
      "image": "https://s.alicdn.com/@sc04/kf/Hb7b760187ad0434187188338ce4553abF.jpg_960x960q80.jpg",

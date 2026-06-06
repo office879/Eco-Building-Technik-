@@ -321,11 +321,11 @@ function ProductEditor({ initial, authHeaders, onClose, onSaved }) {
         <Field label="Kategorie" required>
           <select value={form.category} onChange={(e) => set("category", e.target.value)} className={inputCls} data-testid="editor-category">
             <option value="waermepumpen">Wärmepumpen</option>
-            <option value="smarthome">Smart Home</option>
+            <option value="gas-brennwert">Gas-Brennwert</option>
+            <option value="smart-home">Smart Home</option>
+            <option value="beleuchtung">Beleuchtung</option>
+            <option value="energiemanagement">Energiemanagement</option>
             <option value="wasser">Wasser</option>
-            <option value="gasthermen">Gasthermen</option>
-            <option value="heizung">Heizung</option>
-            <option value="filter">Filter</option>
           </select>
         </Field>
         <Field label="Name" required wide>

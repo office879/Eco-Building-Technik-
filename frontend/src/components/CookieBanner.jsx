@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { useLang } from "../context/I18nContext";
 
 const KEY = "ecobt_cookie_ack_v1";
 
 export default function CookieBanner() {
+  const { t } = useLang();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,22 +26,21 @@ export default function CookieBanner() {
       data-testid="cookie-banner"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="eyebrow">Cookies</div>
-        <button onClick={accept} className="text-white/40 hover:text-white" data-testid="cookie-close" aria-label="Schließen">
+        <div className="eyebrow">{t("cookie.title")}</div>
+        <button onClick={accept} className="text-white/40 hover:text-white" data-testid="cookie-close" aria-label={t("cookie.close")}>
           <X size={14}/>
         </button>
       </div>
-      <div className="font-display text-base mb-3">Diese Website verwendet Cookies.</div>
+      <div className="font-display text-base mb-3">{t("cookie.heading")}</div>
       <p className="text-xs text-white/60 leading-relaxed mb-5">
-        Wir nutzen ausschließlich technisch notwendige Cookies (Session, Sprach-Präferenz).
-        Keine Tracker, kein Drittanbieter-Marketing.
+        {t("cookie.text")}
       </p>
       <div className="flex items-center gap-4">
         <button onClick={accept} className="btn-primary !py-3 !px-5 text-[11px]" data-testid="cookie-accept">
-          Verstanden
+          {t("cookie.accept")}
         </button>
         <button onClick={accept} className="text-[11px] tracking-[0.12em] uppercase text-white/60 hover:text-white" data-testid="cookie-readmore">
-          Datenschutz lesen
+          {t("cookie.readMore")}
         </button>
       </div>
     </div>

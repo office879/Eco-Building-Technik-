@@ -1,21 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Leaf, Users, Award, Wrench, ArrowRight } from "lucide-react";
+import { useLang } from "../context/I18nContext";
 
 const IMG = "https://images.unsplash.com/photo-1761571740780-d9149a88b759?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVsJTIwaG91c2UlMjBtb2Rlcm58ZW58MHx8fHwxNzc4MTI3ODMwfDA&ixlib=rb-4.1.0&q=85";
 
 export default function About() {
+  const { t } = useLang();
   return (
     <div className="pt-32 pb-20" data-testid="about-page">
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-12 border-b border-white/10">
-        <div className="eyebrow mb-6">Über uns</div>
+        <div className="eyebrow mb-6">{t("about.eyebrow")}</div>
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] max-w-5xl">
-          Der Fachbetrieb für<br/><span className="italic-accent">nachhaltige</span> Gebäudetechnik.
+          {t("about.h1.1")}<br/><span className="italic-accent">{t("about.h1.italic")}</span> {t("about.h1.2")}
         </h1>
         <p className="mt-10 max-w-3xl text-base md:text-lg text-white/65 leading-relaxed">
-          ECO Building Technik ist Ihr Partner für A+++ Wärmepumpen, Gas-Brennwertgeräte und intelligente
-          Smart Home Systemintegration in Ebreichsdorf, Österreich. Mit persönlicher Beratung, präziser
-          Planung und erstklassiger Installation realisieren wir Ihre Vision einer nachhaltigen Zukunft.
+          {t("about.intro")}
         </p>
       </section>
 
@@ -25,28 +25,27 @@ export default function About() {
             <img src={IMG} alt="Moderne Gebäudetechnik" className="absolute inset-0 w-full h-full object-cover opacity-90"/>
           </div>
           <div className="p-10 lg:p-16">
-            <div className="eyebrow mb-5">Unsere Mission</div>
+            <div className="eyebrow mb-5">{t("about.mission")}</div>
             <h2 className="font-display text-3xl md:text-5xl tracking-tight leading-[1.05] mb-7">
-              Technik, die sich für<br/>Menschen und <span className="italic-accent">Umwelt lohnt.</span>
+              {t("about.h2.1")}<br/>{t("about.h2.2")} <span className="italic-accent">{t("about.h2.italic")}</span>
             </h2>
             <p className="text-white/65 leading-relaxed mb-10">
-              Wir glauben, dass nachhaltige Gebäudetechnik weder kompromissbehaftet noch kompliziert sein muss.
-              Jedes Projekt wird individuell geplant — von der Heizlastberechnung bis zur Smart-Home-Integration.
+              {t("about.missionText")}
             </p>
             <Link to="/kontakt" className="btn-primary" data-testid="about-cta">
-              Jetzt beraten lassen <ArrowRight size={14}/>
+              {t("about.cta")} <ArrowRight size={14}/>
             </Link>
           </div>
         </div>
       </section>
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
-        <div className="eyebrow mb-10">Unsere Werte</div>
+        <div className="eyebrow mb-10">{t("about.values")}</div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
-          <Value n="01" icon={Leaf} title="Nachhaltig" desc="A+++ Produkte, erneuerbare Energie, CO₂-arme Technik."/>
-          <Value n="02" icon={Users} title="Persönlich" desc="Direkte Beratung, feste Ansprechpartner, kein Call-Center."/>
-          <Value n="03" icon={Award} title="Qualität" desc="Nur geprüfte Marken, zertifizierte Installateure."/>
-          <Value n="04" icon={Wrench} title="Alles aus einer Hand" desc="Planung, Lieferung, Installation & Service."/>
+          <Value n="01" icon={Leaf} title={t("about.v1.title")} desc={t("about.v1.desc")}/>
+          <Value n="02" icon={Users} title={t("about.v2.title")} desc={t("about.v2.desc")}/>
+          <Value n="03" icon={Award} title={t("about.v3.title")} desc={t("about.v3.desc")}/>
+          <Value n="04" icon={Wrench} title={t("about.v4.title")} desc={t("about.v4.desc")}/>
         </div>
       </section>
     </div>

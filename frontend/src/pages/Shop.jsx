@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import ProductCard from "../components/ProductCard";
+import SmartHomeFeature from "../components/SmartHomeFeature";
 import { fetchProducts, fetchCategories } from "../lib/api";
 
 export default function Shop() {
@@ -84,6 +85,8 @@ export default function Shop() {
           </div>
         </div>
       </section>
+
+      {active === "smart-home" && <SmartHomeFeature/>}
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
         {loading ? (

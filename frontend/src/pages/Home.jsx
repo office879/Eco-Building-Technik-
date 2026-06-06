@@ -5,6 +5,7 @@ import ProductCard from "../components/ProductCard";
 import EnergyCalculator from "../components/EnergyCalculator";
 import FAQ from "../components/FAQ";
 import VideoFeature from "../components/VideoFeature";
+import SmartHomeFeature from "../components/SmartHomeFeature";
 import { fetchProducts } from "../lib/api";
 import { useLang } from "../context/I18nContext";
 
@@ -176,6 +177,8 @@ export default function Home() {
 
       {/* Video Feature */}
       <VideoFeature/>
+
+      <SmartHomeFeature/>
 
       {/* Split feature */}
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pb-28">

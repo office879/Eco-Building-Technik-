@@ -53,10 +53,27 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - Frontend (v1): ~95% — all flows working
 - v2 visual verification via screenshots — matches Royalhouse aesthetic
 
-## P1 Backlog
-- B2B Login (JWT) with tiered pricing
-- Admin dashboard (products CRUD + inquiries inbox)
-- Stripe Checkout (optional)
-- Email notifications on inquiries (SendGrid/Resend)
-- Multi-language content (EN/RU/UA — currently only switcher UI)
-- Impressum & Datenschutz pages
+### v3 (2026-02-08) — Admin Dashboard, Email & i18n
+- [x] **5 neue JNOD R290 Wärmepumpen** importiert (JMU50HCINV, J12HWH 75°C, Low-Noise, J12HW200V2 200L, JME50HC) mit +70% Aufschlag und `Lieferzeit` in specs (ca. 15 Werktage). Insgesamt jetzt **55 Produkte**.
+- [x] **JWT Auth System** (`/app/backend/auth.py`): bcrypt + PyJWT, 8h Access-Token, `make_require_admin` Dependency, idempotente `seed_admin` beim Backend-Start
+- [x] **Resend E-Mail-Integration** (`/app/backend/email_service.py`): Anfrage-Notifications via `BackgroundTasks` → `office@eco-building.tech`. HTML-Mail mit Produkten + Nachricht + Reply-To. Bei leerem `RESEND_API_KEY` graceful skip.
+- [x] **Admin Dashboard** (`/admin/login` + `/admin`): 3 Tabs (Anfragen-Inbox / Kontakt-Nachrichten / Produkt-Verwaltung), volle Produkt-CRUD über UI (slug, Kategorie, Beschreibungen, Galerie, Specs als Key:Value-Lines, Features, Preis, Badge, YouTube), Delete-Confirm, Filter
+- [x] **AuthContext + ProtectedRoute** Frontend, Token in localStorage `ecobt_admin_token`
+- [x] **i18n EN/RU/UA Translation Dictionary** in `I18nContext` (60+ Strings: nav, CTAs, hero, categories, shop, product, cart, form, footer), wired in Header & Home Hero. `t(key)` API für andere Komponenten verfügbar.
+
+## Admin Credentials
+- URL: `/admin/login`
+- E-Mail: `admin@eco-building.tech`
+- Passwort: `u_pIzUzKdOGLdSNg1xY` (gespeichert in `/app/memory/test_credentials.md`)
+
+## Tested (v3)
+- Backend: 100% (23/23 pytest in `/app/backend/tests/test_admin_auth.py`) — login, /me, admin inquiries/contacts/products CRUD, JNOD slugs, graceful email skip
+- Frontend: 100% — Admin login flow, CRUD UI, ProtectedRoute redirect, EN/RU/UA i18n persistence
+
+## P1/P2 Backlog (remaining)
+- Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~30 weitere URLs offen). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
+- Komplette Übersetzung der restlichen Seiten (Shop-Filter, ProductDetail-Specs, About, Contact, Footer) — Dictionary-Keys liegen bereit
+- Resend API-Key beschaffen + Domain verifizieren für echte Mail-Zustellung an `office@eco-building.tech`
+- Refactor: `server.py` (1250 Zeilen) in `routes/`, `models/`, `seed/` aufsplitten
+- 401-Interceptor in `api.js` der bei abgelaufenem Token localStorage räumt
+- Bild-404s (Squirrel M30, Smart LED-Streifen/Deckenleuchte/Lampe) ersetzen

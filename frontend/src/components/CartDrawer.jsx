@@ -1,14 +1,29 @@
 import React, { useState } from "react";
-import { X, Trash2, Minus, Plus, ArrowRight, CheckCircle2 } from "lucide-react";
+import axios from "axios";
+import { X, Trash2, Minus, Plus, ArrowRight, CheckCircle2, CreditCard } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { submitInquiry } from "../lib/api";
 import { toast } from "sonner";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function CartDrawer() {
   const { items, isOpen, setIsOpen, removeItem, updateQty, clear, count } = useCart();
   const [step, setStep] = useState("cart");
   const [form, setForm] = useState({ customer_name: "", email: "", phone: "", company: "", message: "" });
   const [sending, setSending] = useState(false);
+  const [checkingOut, setCheckingOut] = useState(false);
+
+  // Compute net total from items that have price_from
+  const lineTotals = items.map((i) => ({
+    ...i,
+    netUnit: typeof i.price_from === "number" ? i.price_from : null,
+    netLine: typeof i.price_from === "number" ? i.price_from * i.quantity : null,
+  }));
+  const netTotal = lineTotals.reduce((s, l) => s + (l.netLine || 0), 0);
+  const vat = netTotal * 0.2;
+  const gross = netTotal + vat;
+  const allHavePrice = items.length > 0 && lineTotals.every((l) => l.netUnit != null && l.netUnit > 0);
 
   const close = () => {
     setIsOpen(false);
@@ -30,6 +45,26 @@ export default function CartDrawer() {
       toast.error("Fehler beim Senden. Bitte erneut versuchen.");
     } finally {
       setSending(false);
+    }
+  };
+
+  const handleStripeCheckout = async () => {
+    if (!allHavePrice) {
+      toast.error("Mindestens ein Artikel ist nur auf Anfrage — bitte über Anfrageformular bestellen");
+      return;
+    }
+    setCheckingOut(true);
+    try {
+      const { data } = await axios.post(`${API}/checkout/session`, {
+        items: items.map((i) => ({ slug: i.slug, quantity: i.quantity })),
+        origin_url: window.location.origin,
+      });
+      if (data.url) window.location.href = data.url;
+    } catch (err) {
+      const msg = err?.response?.data?.detail || "Checkout konnte nicht gestartet werden";
+      toast.error(msg);
+    } finally {
+      setCheckingOut(false);
     }
   };
 
@@ -121,8 +156,30 @@ export default function CartDrawer() {
 
         {step === "cart" && items.length > 0 && (
           <div className="p-7 border-t border-white/10 space-y-3">
-            <button onClick={() => setStep("form")} className="btn-primary w-full justify-center" data-testid="proceed-to-form">
-              Weiter zur Anfrage <ArrowRight size={14}/>
+            {netTotal > 0 && (
+              <div className="mb-3 text-xs space-y-1.5" data-testid="cart-totals">
+                <div className="flex justify-between text-white/55"><span>Netto</span><span>€ {netTotal.toFixed(2)}</span></div>
+                <div className="flex justify-between text-white/55"><span>MwSt. (20%)</span><span>€ {vat.toFixed(2)}</span></div>
+                <div className="flex justify-between text-white pt-1.5 border-t border-white/10 font-medium tracking-wider"><span>Gesamt</span><span>€ {gross.toFixed(2)}</span></div>
+                {!allHavePrice && (
+                  <div className="text-[10px] text-amber-300/80 pt-1">Manche Artikel nur auf Anfrage — Online-Zahlung deaktiviert.</div>
+                )}
+              </div>
+            )}
+            <button
+              onClick={handleStripeCheckout}
+              disabled={!allHavePrice || checkingOut}
+              className="btn-primary w-full justify-center disabled:opacity-40 disabled:cursor-not-allowed"
+              data-testid="stripe-checkout-btn"
+            >
+              {checkingOut ? "Wird vorbereitet…" : <>Direkt online kaufen <CreditCard size={14}/></>}
+            </button>
+            <button
+              onClick={() => setStep("form")}
+              className="btn-ghost w-full justify-center"
+              data-testid="proceed-to-form"
+            >
+              Stattdessen Anfrage senden <ArrowRight size={14}/>
             </button>
             <button onClick={clear} className="text-[11px] tracking-[0.12em] uppercase text-white/50 hover:text-white w-full">Korb leeren</button>
           </div>

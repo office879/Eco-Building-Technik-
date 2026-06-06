@@ -19,6 +19,7 @@ from auth import (
     verify_password, create_access_token, make_require_admin, seed_admin,
 )
 from email_service import send_inquiry_email
+from stripe_routes import init_stripe_routes
 
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
@@ -1213,6 +1214,7 @@ async def admin_delete_product(slug: str, user: dict = Depends(require_admin)):
 
 
 app.include_router(api_router)
+app.include_router(init_stripe_routes(db), prefix="/api")
 
 app.add_middleware(
     CORSMiddleware,

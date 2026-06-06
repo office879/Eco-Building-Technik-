@@ -106,8 +106,9 @@ export default function ProductDetail() {
 
             <div className="mt-12 border-t border-white/10 pt-8">
               <div className="eyebrow mb-3">Preis</div>
-              <div className="font-display text-2xl mb-2">{product.price_note}</div>
-              <div className="text-xs text-white/55">Individuelles Angebot inkl. Förderung & Installation</div>
+              <div className="font-display text-2xl mb-2" data-testid="pd-price">{product.price_note}</div>
+              <div className="text-xs text-emerald-300/80 tracking-wider uppercase mb-1" data-testid="pd-netto">Netto · zzgl. 20 % MwSt.</div>
+              <div className="text-xs text-white/55">Individuelles Angebot inkl. Förderung & Installation · B2B-Konditionen verfügbar</div>
             </div>
 
             <div className="mt-8 flex items-center gap-3">

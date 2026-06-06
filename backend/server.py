@@ -843,7 +843,7 @@ SEED_PRODUCTS = [
      ],
      "featured": True, "badge": "PREMIUM",
      "price_from": 5200.0,
-     "price_note": "ab 5.200 € inkl. MwSt. (Endkundenpreis)",
+     "price_note": "ab 5.200 € Netto (zzgl. 20% MwSt.)",
      "specs": {
         "Modell": "JMU50HCINV",
         "Heizleistung": "5 - 20 kW (modular)",
@@ -886,7 +886,7 @@ SEED_PRODUCTS = [
      ],
      "featured": True, "badge": "ALL-IN-ONE",
      "price_from": 2360.0,
-     "price_note": "ab 2.360 € inkl. MwSt. (Endkundenpreis)",
+     "price_note": "ab 2.360 € Netto (zzgl. 20% MwSt.)",
      "specs": {
         "Modell": "J12HWH",
         "Heizleistung": "9 kW",
@@ -930,7 +930,7 @@ SEED_PRODUCTS = [
      ],
      "featured": True, "badge": "LEISE",
      "price_from": 2470.0,
-     "price_note": "ab 2.470 € inkl. MwSt. (Endkundenpreis)",
+     "price_note": "ab 2.470 € Netto (zzgl. 20% MwSt.)",
      "specs": {
         "Modell": "J12HWH (Low Noise)",
         "Heizleistung": "9 kW",
@@ -973,7 +973,7 @@ SEED_PRODUCTS = [
      ],
      "featured": True, "badge": "200L",
      "price_from": 1355.0,
-     "price_note": "ab 1.355 € inkl. MwSt. (Endkundenpreis)",
+     "price_note": "ab 1.355 € Netto (zzgl. 20% MwSt.)",
      "specs": {
         "Modell": "J12HW200V2",
         "Funktion": "Brauchwasser (ACS / DHW)",
@@ -1018,7 +1018,7 @@ SEED_PRODUCTS = [
      ],
      "featured": True, "badge": "A+++",
      "price_from": 2120.0,
-     "price_note": "ab 2.120 € inkl. MwSt. (Endkundenpreis)",
+     "price_note": "ab 2.120 € Netto (zzgl. 20% MwSt.)",
      "specs": {
         "Modell": "JME50HC",
         "Heizleistung": "5 - 22 kW (modular)",

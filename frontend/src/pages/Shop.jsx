@@ -2,7 +2,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import ProductCard from "../components/ProductCard";
-import SmartHomeFeature from "../components/SmartHomeFeature";
+import CategoryVideoFeature from "../components/CategoryVideoFeature";
+import { CATEGORY_VIDEOS } from "../config/categoryVideos";
 import { fetchProducts, fetchCategories } from "../lib/api";
 
 export default function Shop() {
@@ -52,6 +53,10 @@ export default function Shop() {
           Premium-Gebäudetechnik von A+++ Wärmepumpen bis Zigbee 3.0 Smart Home.
           Alle Produkte auf Anfrage mit kostenloser Fachberatung und individuellem Angebot.
         </p>
+        <div className="mt-6 inline-flex items-center gap-3 border border-white/20 px-4 py-2.5 text-[11px] tracking-[0.15em] uppercase" data-testid="netto-disclaimer">
+          <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+          <span className="text-white/90">Alle Preise verstehen sich Netto · zzgl. 20 % MwSt. (B2B & Fachbetriebs-Konditionen)</span>
+        </div>
       </section>
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-10">
@@ -86,7 +91,9 @@ export default function Shop() {
         </div>
       </section>
 
-      {active === "smart-home" && <SmartHomeFeature/>}
+      {active !== "all" && CATEGORY_VIDEOS[active] && (
+        <CategoryVideoFeature config={CATEGORY_VIDEOS[active]} categoryKey={active} />
+      )}
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
         {loading ? (

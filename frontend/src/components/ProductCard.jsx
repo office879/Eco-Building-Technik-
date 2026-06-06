@@ -49,7 +49,12 @@ export default function ProductCard({ product }) {
           {product.short_description}
         </p>
         <div className="flex items-center justify-between pt-5 border-t border-white/10">
-          <span className="text-[11px] tracking-[0.12em] uppercase text-white/45">{product.price_note}</span>
+          <div className="flex flex-col">
+            <span className="text-[11px] tracking-[0.12em] uppercase text-white/45">{product.price_note}</span>
+            {product.price_note && /€|EUR|\d/.test(product.price_note) && !/netto/i.test(product.price_note) && (
+              <span className="text-[9px] tracking-[0.15em] uppercase text-white/30 mt-0.5">Netto · zzgl. 20 % MwSt.</span>
+            )}
+          </div>
           <button
             onClick={handleAdd}
             data-testid={`add-to-cart-${product.slug}`}

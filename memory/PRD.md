@@ -86,6 +86,16 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - [x] Neue Dictionary-Keys: ~90 zusätzliche Einträge (`about.*`, `contact.*`, `energy.*`, `calc.*`, `cookie.*`)
 - [x] **Testing-Agent v3 verifiziert** (iteration_3.json): Alle Translation-Keys lösen sich auf, Language-Switcher persistiert, Cookie-Banner-Accept schreibt localStorage, Energy-Calculator-Interaktionen funktionieren, kein Regress auf Shop/PD/Footer/Header
 
+### v6 (2026-06-06) — Tech-Explainer (YouTube weg) + Content-Integration + 5 neue ECO-Produkte
+- [x] **YouTube-Videos auf Kategorien-Seiten entfernt** → ersetzt durch proprietären `CategoryTechExplainer.jsx` mit eigenen animierten SVG-Schaltbildern pro Kategorie: Wärmepumpen-Kältekreislauf (R290, COP 5.2), Gas-Brennwertkessel (109% Wirkungsgrad), Smart-Home-Mesh (Edge-Hub + Devices), LED-Spektrum (Tunable White + RGB), Energieflow (PV → Inverter → Speicher → Verbraucher), 5-Stufen-Wasserfilter
+- [x] Jede Kategorie hat: animiertes SVG-Schema, 4-Schritt-Prozess mit Tech-Details, 6-Feld Spec-Tabelle, voll mehrsprachig DE/EN/RU/UA
+- [x] **5 neue Warmwasser-Produkte** importiert von www.eco-building.tech/category/warmwasser-wärmepumpen: Luft-Wasser-WP mit WiFi (€ 2.986), All-in-One Boiler (€ 1.299, 100/200/300L), Luft-Wasser-WP zur WW (€ 890, 82/102/149L), R290 Full Inverter (€ 4.510), Heizung+Kühlung+WW (€ 3.286, 12/16 kW). **Total Produkte: 64**.
+- [x] **Brand-Positionierung von eco-building.tech integriert**: Hero-Subtitle erwähnt KI-Steuerung + KNX/BACnet/Modbus + 30% Energieverbrauch, Intro-Section umgebaut zu "Spezialisierter KI-Systemintegrator. Kein Installationsbetrieb." mit echten Stats 596/1 Mio./56
+- [x] **Marquee** aktualisiert mit "KI-optimierte Steuerung", "596 Wärmepumpen-Projekte", "BIM-integriert", "KNX · BACnet · Modbus"
+- [x] **Image-Audit**: 1 Zero-Byte-Bild gefunden (smart-panel-ceiling-speakers-set) → durch Unsplash-Foto ersetzt, in DB und SEED_PRODUCTS aktualisiert. Alle 64 Bilder laden jetzt korrekt.
+- [x] **Obsolete YouTube-Files entfernt**: `CategoryVideoFeature.jsx`, `config/categoryVideos.js`
+- [x] **Testing-Agent v3 verifiziert** (iteration_4.json): Backend 39/39 Tests pass, alle 5 neuen Slugs liefern 200, Tech-Explainer rendert auf allen 6 Kategorien (kein YouTube-iframe), i18n DE/EN/RU/UA bestätigt, 0 Issues
+
 ## P1/P2 Backlog (remaining)
 - Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen, **User stellt URL-Liste später bereit**). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
 - Optional: AdminDashboard, AdminLogin, CheckoutSuccess, CheckoutCancel, CartDrawer i18n nachziehen (aktuell DE)

@@ -486,7 +486,7 @@ SEED_PRODUCTS = [
      "category": "smart-home",
      "short_description": "All-in-One Smart-Home Panel mit 4 Decken-Einbau-Lautsprechern. Hi-Fi Multiroom-Audio + Smart-Home-Steuerung.",
      "description": "Das ultimative All-in-One Smart-Home Set: Premium Touch-Panel mit 6 individuell programmierbaren Custom-Szenen, integriertem Wetter-Display, Thermostat-Drehregler — kombiniert mit 4 hochwertigen Decken-Einbau-Lautsprechern (Multiroom-Audio).\n\nIdeal für Wohnzimmer, Schlafzimmer, Bäder, Restaurants oder Hotels: ein Panel steuert Licht, Klima, Szenen und Sound im gesamten Raum. Hi-Fi-Sound aus den Decken, unsichtbar verbaut.\n\nApp-gesteuert via Tuya/Smart Life, Spotify Connect, AirPlay, Bluetooth 5.0. Verstärker integriert (2×30W). Premium-Installation auf Anfrage.",
-     "image": "https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/jqbgbiqx_inbound5008988608539284716.jpg",
+     "image": "https://images.unsplash.com/photo-1558002038-1055907df827?crop=entropy&cs=srgb&fm=jpg&w=1000&q=85",
      "featured": True, "badge": "MULTIROOM",
      "price_note": "Preis auf Anfrage · ab € 689",
      "specs": {

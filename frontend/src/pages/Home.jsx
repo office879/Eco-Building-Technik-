@@ -267,8 +267,8 @@ export default function Home() {
 function Stat({ k, v }) {
   return (
     <div className="bg-[#0B1736] p-6">
-      <div className="text-[11px] tracking-[0.15em] uppercase text-white/45 mb-2">{k}</div>
-      <div className="font-display text-3xl">{v}</div>
+      <div className="text-[11px] tracking-[0.15em] uppercase text-white/45 mb-2 whitespace-nowrap">{k}</div>
+      <div className="font-display text-2xl md:text-3xl whitespace-nowrap">{v}</div>
     </div>
   );
 }

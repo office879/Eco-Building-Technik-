@@ -74,6 +74,7 @@ function InquiriesPanel({ authHeaders }) {
       setItems([]);
     }
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, []);
 
   const onDelete = async (id) => {
@@ -141,6 +142,7 @@ function ContactsPanel({ authHeaders }) {
     axios.get(`${API}/admin/contacts`, { headers: authHeaders })
       .then((r) => setItems(r.data))
       .catch(() => { toast.error("Konnte Kontakte nicht laden"); setItems([]); });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (items === null) return <div className="text-white/40 text-sm">Lädt…</div>;
   if (items.length === 0) return <Empty label="Noch keine Kontaktnachrichten." />;

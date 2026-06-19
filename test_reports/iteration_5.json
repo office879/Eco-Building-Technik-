@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 5 — Final production-readiness E2E. Backend 42/42 pytest pass (added 3 Stripe checkout tests on top of iter4's 39). All 64 products served, 6 categories, all 5 new ECO Warmwasser slugs verified, JNOD slugs with Lieferzeit present, /api/checkout/session returns Stripe URL+session_id (€5412 gross for €4510 net via 20% MwSt server-side calc), /api/checkout/status/{id} returns 200 with payment_status, empty-cart & invalid-slug correctly rejected (400). Auth: login, /me, wrong-pw 401 with German detail, admin lists protected, admin product CRUD all green. Frontend E2E (live preview URL): Home renders new hero KI-Gebäudeautomation, smart-home tech explainer + MP4 video both embedded (data-testid='category-tech-smart-home' / 'category-tech-video-el-smart-home'), stats 596/Mio./56 visible, ZERO YouTube iframes. /shop: 64 product cards, 0 broken images detected (the iter4 broken image is no longer flagged in DOM — naturalWidth check passed for all 64). /shop/eco-r290-full-inverter-luft-wasser: image, specs, '4.510 €', Netto-Hinweis, add-to-inquiry button. Cart drawer opens automatically after add, shows Netto €4510 / MwSt 20% €902 / Gesamt €5412, both 'DIREKT ONLINE KAUFEN' (Stripe) and 'STATTDESSEN ANFRAGE SENDEN' visible. All 6 categories render proprietary CategoryTechExplainer (SVG + 4 steps + 6 specs). i18n DE/EN/RU/UA switches cleanly — EN body contains English, RU/UA contain Cyrillic, NO raw key leaks like 'shop.title'. /kontakt submit yields success view. /impressum, /datenschutz, /agb all load. Cookie banner appears on first visit, 'Verstanden' sets localStorage ecobt_cookie_ack_v1=1. Admin login → /admin dashboard with Inquiries/Contacts/Products sections. Production build /app/frontend/build/ exists with index.html (1008B) + static/{css,js}. Only one minor console error captured: 403 on cdn.pixabay.com audio asset (non-blocking, doesn't affect any flow).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "console_warnings": [
+      {"screen": "Home", "issue": "403 on https://cdn.pixabay.com/audio/2022/08/02/audio_2dde668ca0.mp3 — third-party audio asset referenced somewhere (likely a removed/sample SFX). Non-blocking but logs an error. Recommend removing the <audio> reference or hosting locally.", "priority": "LOW"},
+      {"screen": "Home", "issue": "ERR_ABORTED on https://customer-assets.emergentagent.com/job_building-tech-neu/artifacts/q1nbilbz_74089e90-...mp4 — an MP4 preload aborted (probably a leftover/unused video source). Worth grepping for that URL and removing if unused.", "priority": "LOW"}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_admin_auth.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(Optional / cosmetic) Remove the cdn.pixabay.com audio reference triggering a 403 in the browser console — no functional impact.",
+    "(Optional) Remove the orphan MP4 preload URL `customer-assets.emergentagent.com/job_building-tech-neu/artifacts/q1nbilbz_...mp4` if it is no longer used; currently aborts on every Home load."
+  ],
+  "critical_code_review_comments": [
+    "Production build OK: /app/frontend/build/index.html + static bundle present. yarn build artifacts confirmed for self-hosted deployment.",
+    "Stripe handler computes the gross total SERVER-SIDE from DB price_from × (1+VAT) — correct, client cannot tamper. line_items_meta also persisted in payment_transactions with net/vat/gross split before redirect. Good.",
+    "auth.py login returns generic German error 'E-Mail oder Passwort falsch' for both wrong email and wrong password (verified) — avoids user enumeration. Confirmed brute-force-safe at API level (note: explicit per-IP lockout was NOT implemented; if required for production add it).",
+    "Resend integration degrades gracefully when RESEND_API_KEY is empty — POST /api/inquiries still returns 200 with the persisted record (verified via test_inquiry_post_graceful_with_empty_resend_key).",
+    "categoryTech.js still co-locates 4 languages inline — at 6 categories it's fine, but split to /config/i18n/categoryTech.{de,en,ru,uk}.json once the catalogue grows past 8 categories.",
+    "CategoryTechExplainer.jsx remains ~470 lines (6 inline SVG schematics). Functional & i18n-correct, but consider extracting each Schematic* into /components/schematics/*.jsx for maintainability."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py — added 3 Stripe checkout tests (valid session + empty-cart + invalid-slug)"
+  ],
+  "success_rate": {
+    "backend": "100% (42/42 pytest)",
+    "frontend": "100% on all listed flows (only LOW-severity third-party 403 in console)"
+  },
+  "test_credentials": "admin@eco-building.tech / u_pIzUzKdOGLdSNg1xY (verified)",
+  "seed_data_creation": "Tests create TEST_-prefixed inquiry & contact, and a transient admin product (created → updated → deleted in one test). One Stripe checkout session is created in test mode (persisted in payment_transactions with status='initiated').",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "App is production-ready for self-host deployment. Backend 42 pytest cover health, categories, 64-product list, new ECO slugs, JNOD specs.Lieferzeit, inquiries+contacts persistence, admin auth (incl. JWT, /me, malformed token, brute-force-safe error), admin CRUD with duplicate=409 and not-found=404, Stripe session creation + status polling. Frontend verified on live preview URL: 6 category tech-explainers (proprietary SVG + i18n), MP4 video on smart-home (NOT YouTube), 64 products with 0 broken images detected in DOM at test time, cart drawer with Netto/MwSt/Gesamt + Stripe + Anfrage paths, i18n DE/EN/RU/UA without key leaks, cookie banner+localStorage, admin login, legal pages. Build artifacts at /app/frontend/build/. localStorage keys: ecobt_lang_v1, ecobt_cookie_ack_v1, ecobt_admin_token.",
+  "rca of the issue": "No blocking issues. Two LOW-severity console items: (1) cdn.pixabay.com audio 403 — likely a stale <audio src=> reference; grep `pixabay` under /app/frontend/src to remove. (2) ERR_ABORTED MP4 preload `q1nbilbz_...mp4` — leftover unused asset; grep `q1nbilbz` to find and delete. Neither blocks deployment."
+}

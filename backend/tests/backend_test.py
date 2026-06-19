@@ -148,3 +148,37 @@ def test_stats(client):
     data = r.json()
     # at least products count
     assert "products" in data or "total_products" in data
+
+
+# --- Stripe Checkout ---
+def test_stripe_checkout_session_creates_with_valid_cart(client):
+    payload = {
+        "items": [{"slug": "eco-r290-full-inverter-luft-wasser", "quantity": 1}],
+        "origin_url": BASE_URL,
+        "customer_email": "test_stripe@example.com",
+    }
+    r = client.post(f"{API}/checkout/session", json=payload)
+    assert r.status_code == 200, f"got {r.status_code}: {r.text}"
+    data = r.json()
+    assert "url" in data and data["url"].startswith("http")
+    assert "session_id" in data and len(data["session_id"]) > 0
+    # Now poll status
+    sid = data["session_id"]
+    r2 = client.get(f"{API}/checkout/status/{sid}")
+    assert r2.status_code == 200, r2.text
+    s = r2.json()
+    assert "status" in s
+    assert "payment_status" in s
+
+
+def test_stripe_checkout_empty_cart_rejected(client):
+    r = client.post(f"{API}/checkout/session", json={"items": [], "origin_url": BASE_URL})
+    assert r.status_code in (400, 422)
+
+
+def test_stripe_checkout_invalid_slug_400(client):
+    r = client.post(f"{API}/checkout/session", json={
+        "items": [{"slug": "does-not-exist-xyz", "quantity": 1}],
+        "origin_url": BASE_URL,
+    })
+    assert r.status_code == 400

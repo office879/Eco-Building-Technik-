@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import CookieBanner from "./components/CookieBanner";
+import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -32,6 +33,7 @@ function App() {
         <AuthProvider>
         <CartProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Header />
             <main>
               <Routes>

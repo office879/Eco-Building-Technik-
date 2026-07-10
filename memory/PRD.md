@@ -102,6 +102,18 @@ Iteration 2 (2026-06-02): User provided https://royal-bautraeger.preview.emergen
 - [x] `config.video` und `config.videoPoster` in categoryTech.js — andere Kategorien bleiben nur SVG-Schema
 - [x] Smoke-Test bestätigt: Video lädt mit korrekter Source-URL und Poster
 
+### v8 (2026-07-10) — Deep Quality Check + Modernisierung
+- [x] **ProductCard visuell überarbeitet**: Produkte mit Preis zeigen jetzt großes € Display (z.B. "€ 4.510" + kleine "Netto · zzgl. 20% MwSt." darunter), Produkte "auf Anfrage" zeigen amber "PREIS AUF ANFRAGE" + Ab-Preis-Zeile. Kein doppelter NETTO-Bug mehr, keine unerwünschten Zeilenumbrüche.
+- [x] **Featured-Produkte kuratiert**: von 42 (66% aller Produkte) reduziert auf **8** hochwertige Bestseller (eco-r290-full-inverter, kronoterm-adapt-2, kronoterm-essenta, golden-security-smart-panel + 4 weitere). Home-Featured-Section zeigt jetzt alle 8 statt slice(0,4)
+- [x] **Galerien vervollständigt**: 18 Produkte hatten leere `gallery` — jetzt mit dem `image` als Fallback befüllt (Produktdetail-Seite zeigt immer mindestens 1 Bild)
+- [x] **Neuer `/api/health` Endpoint**: leichter Health-Check mit Mongo-Ping für Uptime-Monitoring (referenziert in DEPLOYMENT.md und deploy.sh). Return: `{status: 'ok', db: 'connected'}`
+- [x] **Server-Refactor**: server.py von 1417 → 298 Zeilen, SEED_PRODUCTS in eigenes Modul `seed_products.py` extrahiert (1132 Zeilen reine Daten). Alle 64 Produkte weiterhin geseedet.
+- [x] **Solutions-Seite** (/loesungen, /solutions): Personal / Versicherung / Business / Enterprise Segmente, mehrsprachig DE/EN/RU/UA, mit "Vier Lösungen. Ein System."-Hero
+- [x] **Vollständige i18n** auf allen Kunden-Seiten: CartDrawer, CheckoutSuccess/Cancel, AdminLogin, AdminDashboard, Solutions
+- [x] **Nav-Update**: LÖSUNGEN Link in Header + Footer, in allen 4 Sprachen
+- [x] **Deploy-Script**: /app/deploy.sh mit 1-Kommando-Update-Flow (git pull → pip → yarn build → supervisor restart → nginx/caddy reload → Health-Check-Loop)
+- [x] **Testing Agent iter6**: 44/44 Backend Pytest pass, 0 Issues gefunden, alle Produktkarten korrekt gerendert, Download-Package HTTP 200 (332 KB)
+
 ## P1/P2 Backlog (remaining)
 - Bulk-Import von Alibaba/Kronoterm Produkt-URLs (User-Wunsch: ~20 weitere URLs offen, **User stellt URL-Liste später bereit**). **Empfehlung**: über Admin-Dashboard manuell einpflegen oder dedizierten Import-Endpoint bauen.
 - Optional: AdminDashboard, AdminLogin, CheckoutSuccess, CheckoutCancel, CartDrawer i18n nachziehen (aktuell DE)

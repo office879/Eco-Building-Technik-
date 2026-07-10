@@ -318,12 +318,13 @@ function SmartHomeMesh({ accent }) {
         </g>
       ))}
 
-      {/* Protocols */}
+      {/* Protocols legend */}
       <g>
-        <text x="50" y="40" fill={accent} fontSize="9" letterSpacing="2">⬢ ZIGBEE 3.0</text>
-        <text x="200" y="40" fill={accent} fontSize="9" letterSpacing="2">⬢ WI-FI 6</text>
-        <text x="320" y="40" fill={accent} fontSize="9" letterSpacing="2">⬢ MATTER</text>
-        <text x="450" y="40" fill="rgba(255,255,255,0.45)" fontSize="9" letterSpacing="2">200+ GERÄTE</text>
+        <rect x="30" y="20" width="640" height="30" fill="#0B1736" stroke={accent} strokeWidth="0.5" opacity="0.85"/>
+        <text x="80" y="40" fill={accent} fontSize="10" letterSpacing="2">● ZIGBEE 3.0</text>
+        <text x="220" y="40" fill={accent} fontSize="10" letterSpacing="2">● WI-FI 6</text>
+        <text x="340" y="40" fill={accent} fontSize="10" letterSpacing="2">● MATTER</text>
+        <text x="620" y="40" textAnchor="end" fill="rgba(255,255,255,0.55)" fontSize="10" letterSpacing="2">200+ GERÄTE · AES-128</text>
       </g>
     </svg>
   );

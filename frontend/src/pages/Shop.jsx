@@ -7,6 +7,16 @@ import { CATEGORY_TECH } from "../config/categoryTech";
 import { fetchProducts, fetchCategories } from "../lib/api";
 import { useLang } from "../context/I18nContext";
 
+// Display order for the "All Products" view — most important on top
+const CATEGORY_ORDER = [
+  "waermepumpen",
+  "gas-brennwert",
+  "wasser",
+  "smart-home",
+  "beleuchtung",
+  "energiemanagement",
+];
+
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [cats, setCats] = useState([]);
@@ -38,6 +48,20 @@ export default function Shop() {
     }
     return list;
   }, [products, active, search]);
+
+  // For "All Products" view: group products by category following CATEGORY_ORDER
+  const grouped = useMemo(() => {
+    if (active !== "all") return null;
+    const byCat = {};
+    filtered.forEach((p) => {
+      if (!byCat[p.category]) byCat[p.category] = [];
+      byCat[p.category].push(p);
+    });
+    // Return in fixed order, only categories with at least 1 product
+    return CATEGORY_ORDER
+      .filter((c) => byCat[c] && byCat[c].length > 0)
+      .map((c) => ({ key: c, items: byCat[c] }));
+  }, [filtered, active]);
 
   const setCat = (key) => {
     if (key === "all") navigate("/shop");
@@ -101,6 +125,31 @@ export default function Shop() {
           <div className="py-24 text-center text-white/50 text-sm tracking-[0.15em] uppercase" data-testid="shop-loading">{t("shop.loading")}</div>
         ) : filtered.length === 0 ? (
           <div className="py-24 text-center text-white/50" data-testid="shop-empty">{t("shop.empty")}</div>
+        ) : grouped ? (
+          <div data-testid="shop-grouped">
+            {grouped.map((group) => (
+              <div key={group.key} className="mb-20" data-testid={`group-${group.key}`}>
+                <div className="flex items-end justify-between mb-6 pb-4 border-b border-white/10">
+                  <div>
+                    <div className="eyebrow mb-2">{t(`cat.${group.key}`, group.key)}</div>
+                    <h2 className="font-display text-2xl md:text-3xl tracking-tight">
+                      {group.items.length} {group.items.length === 1 ? "Produkt" : "Produkte"}
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => setCat(group.key)}
+                    className="text-[11px] tracking-[0.15em] uppercase border-b border-white/40 pb-1 hover:border-white"
+                    data-testid={`group-jump-${group.key}`}
+                  >
+                    {t(`cat.${group.key}`, group.key)} ansehen →
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-white/10 border border-white/10">
+                  {group.items.map((p) => <ProductCard key={p.id} product={p}/>)}
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-white/10 border border-white/10">
             {filtered.map((p) => <ProductCard key={p.id} product={p}/>)}

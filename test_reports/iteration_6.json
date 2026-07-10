@@ -1,0 +1,37 @@
+{
+  "summary": "Iteration 6 — verified iter5 polish. Backend: 44/44 pytest pass (added test_health_endpoint + test_featured_products_exactly_8). NEW /api/health returns {status:'ok', db:'connected'} 200 OK. GET /api/products?featured=true returns exactly 8. Total products=64, categories=6. All prior endpoints (products list/detail, JNOD slugs, ECO Warmwasser slugs, inquiries, contact, stats, admin auth+CRUD, Stripe checkout/session + /status/{id}) still green. Frontend: ProductCard redesign confirmed on live preview — card with price (eco-r290-full-inverter-luft-wasser) renders '€ 4 510' with SINGLE 'NETTO · ZZGL. 20 % MWST.' line, and on-request card (kronoterm-adapt-2) renders 'PREIS AUF ANFRAGE' + 'AB € 12.900' with NO duplicate NETTO and NO wrapping (netto_count=0 in card text, as intended for on-request items). /loesungen and /solutions both render the Segments page ('LÖSUNGEN · SEGMENTE — Vier Lösungen. Ein System.'). /kontakt, /energierechner, /admin/login all load. Production build /app/frontend/build/index.html exists (1008 B). Download package HEAD https://<preview>/eco-building-technik.tar.gz → HTTP 200, content-type application/gzip (339762 B). Only 2 low-severity 403 console errors carried over from iter5 (third-party asset). ONE FINDING: home page 'Ausgewählte Premium-Produkte' section renders only 4 cards, not 8 as stated in the review request — Home.jsx line 181 hard-codes `featured.slice(0, 4)` while backend correctly returns 8 featured. Not a regression (was 4 previously), but contradicts the stated expectation for this iteration.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Home.jsx (Ausgewählte Premium-Produkte section)", "issue": "Renders featured.slice(0, 4) — only 4 cards. Review request specifies EXACTLY 8. Backend /api/products?featured=true correctly returns 8; frontend caps at 4. Fix: change slice(0,4) to slice(0,8) at /app/frontend/src/pages/Home.jsx:181, or remove the slice entirely.", "selector": "[data-testid^=\"product-card-\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [],
+    "console_warnings": [
+      {"screen": "Multiple", "issue": "2 x 403 on third-party asset (carried over from iter5 — cdn.pixabay audio / stale MP4). Non-blocking.", "priority": "LOW"}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/test_admin_auth.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Home.jsx line 181: replace `featured.slice(0, 4)` with `featured.slice(0, 8)` so the 'Ausgewählte Premium-Produkte' section actually shows the 8 curated items (backend already returns 8; frontend caps at 4)."
+  ],
+  "critical_code_review_comments": [
+    "Home.jsx hard-codes slice(0,4) on featured — either drop the slice (backend already curates to 8) or bump to slice(0,8). This is the single deviation between the review request and the running app.",
+    "New /api/health endpoint is minimal but sufficient (status + db-ping). Suitable for k8s liveness/readiness probes.",
+    "ProductCard price rendering logic is correct: with-price shows large € + single Netto line; on-request shows amber 'PREIS AUF ANFRAGE' + 'ab €…' with no NETTO — matches design brief, no duplicate-NETTO wrapping bug detected."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py — added test_health_endpoint and test_featured_products_exactly_8"
+  ],
+  "success_rate": {"backend": "100% (44/44 pytest)", "frontend": "~95% (home featured section shows 4 instead of 8)"},
+  "test_credentials": "admin@eco-building.tech / u_pIzUzKdOGLdSNg1xY (verified via /api/auth/login)",
+  "seed_data_creation": "TEST_-prefixed inquiry + contact created; one Stripe test-mode session; transient admin product created/updated/deleted.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend fully green (44/44). Only remaining issue for iter6 acceptance: Home.jsx:181 slice(0,4) → slice(0,8). ProductCard visual redesign verified working (single NETTO for priced items, clean PREIS AUF ANFRAGE + ab € for on-request items). /api/health live. Both /loesungen and /solutions route to Segments page. Build + tar.gz download both OK.",
+  "rca of the issue": "Home 4-vs-8 featured mismatch: Home.jsx pipeline is `fetchProducts({featured:true}) → setFeatured → featured.slice(0,4).map(...)`. Backend curation dropped from 42→8 (correct on server); frontend slice was not updated to match, so only the first 4 of the 8 curated products render. One-line fix on /app/frontend/src/pages/Home.jsx:181."
+}

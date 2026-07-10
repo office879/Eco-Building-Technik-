@@ -16,6 +16,7 @@ import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import EnergyPage from "./pages/EnergyPage";
+import Solutions from "./pages/Solutions";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import AGB from "./pages/AGB";
@@ -38,6 +39,8 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/shop/:slug" element={<ProductDetail />} />
                 <Route path="/energie-rechner" element={<EnergyPage />} />
+                <Route path="/loesungen" element={<Solutions />} />
+                <Route path="/solutions" element={<Solutions />} />
                 <Route path="/ueber-uns" element={<About />} />
                 <Route path="/kontakt" element={<Contact />} />
                 <Route path="/impressum" element={<Impressum />} />

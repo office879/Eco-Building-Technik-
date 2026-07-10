@@ -15,6 +15,7 @@ export default function Header() {
   const nav = [
     { to: "/", label: t("nav.start"), key: "start" },
     { to: "/shop", label: t("nav.shop"), key: "shop" },
+    { to: "/loesungen", label: t("nav.solutions"), key: "solutions" },
     { to: "/energie-rechner", label: t("nav.energy"), key: "energy" },
     { to: "/ueber-uns", label: t("nav.about"), key: "about" },
     { to: "/kontakt", label: t("nav.contact"), key: "contact" },

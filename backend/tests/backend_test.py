@@ -22,6 +22,21 @@ def test_root(client):
     assert "service" in j or "message" in j
 
 
+def test_health_endpoint(client):
+    r = client.get(f"{API}/health")
+    assert r.status_code == 200, r.text
+    j = r.json()
+    assert j.get("status") == "ok"
+    assert j.get("db") == "connected"
+
+
+def test_featured_products_exactly_8(client):
+    r = client.get(f"{API}/products", params={"featured": "true"})
+    assert r.status_code == 200
+    data = r.json()
+    assert len(data) == 8, f"expected exactly 8 featured, got {len(data)}"
+
+
 # --- Categories ---
 def test_categories(client):
     r = client.get(f"{API}/categories")

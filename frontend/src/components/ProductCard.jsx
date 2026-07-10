@@ -43,17 +43,37 @@ export default function ProductCard({ product }) {
         <p className="text-sm text-white/55 line-clamp-2 mb-5 leading-relaxed">
           {product.short_description}
         </p>
-        <div className="flex items-center justify-between pt-5 border-t border-white/10">
-          <div className="flex flex-col">
-            <span className="text-[11px] tracking-[0.12em] uppercase text-white/45">{product.price_note}</span>
-            {product.price_note && /€|EUR|\d/.test(product.price_note) && !/netto/i.test(product.price_note) && (
-              <span className="text-[9px] tracking-[0.15em] uppercase text-white/30 mt-0.5">{t("card.netto")}</span>
-            )}
+        <div className="flex items-end justify-between gap-3 pt-5 border-t border-white/10">
+          <div className="flex flex-col min-w-0 flex-1">
+            {(() => {
+              const pn = product.price_note || "";
+              const hasPrice = typeof product.price_from === "number" && product.price_from > 0;
+              // Parse "ab X.XXX € Netto..." or "Preis auf Anfrage · ab € X.XXX · Netto"
+              const priceMatch = pn.match(/€\s*[\d.,]+/) || pn.match(/[\d.,]+\s*€/);
+              const isOnRequest = /anfrage/i.test(pn) && !hasPrice;
+              if (isOnRequest) {
+                return (
+                  <>
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-amber-300/80 font-medium">{t("card.onRequest")}</span>
+                    {priceMatch && <span className="text-[11px] tracking-[0.12em] uppercase text-white/55 mt-1">ab {priceMatch[0]}</span>}
+                  </>
+                );
+              }
+              if (hasPrice) {
+                return (
+                  <>
+                    <span className="font-display text-lg leading-none tracking-tight">€ {product.price_from.toLocaleString("de-AT", { maximumFractionDigits: 0 })}</span>
+                    <span className="text-[9px] tracking-[0.15em] uppercase text-white/40 mt-1">{t("card.netto")}</span>
+                  </>
+                );
+              }
+              return <span className="text-[11px] tracking-[0.12em] uppercase text-white/45 line-clamp-2">{pn}</span>;
+            })()}
           </div>
           <button
             onClick={handleAdd}
             data-testid={`add-to-cart-${product.slug}`}
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase font-semibold text-white hover:opacity-80 transition-opacity"
+            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase font-semibold text-white hover:opacity-80 transition-opacity whitespace-nowrap shrink-0 pb-0.5"
           >
             <Plus size={13} strokeWidth={2}/> {t("card.inquire")}
           </button>

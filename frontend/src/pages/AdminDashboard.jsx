@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { Inbox, Package, MessageSquare, LogOut, Trash2, Pencil, Plus, RefreshCcw, X } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "../context/AuthContext";
+import { useLang } from "../context/I18nContext";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function AdminDashboard() {
   const { user, logout, authHeaders } = useAuth();
+  const { t } = useLang();
   const [tab, setTab] = useState("inquiries");
 
   return (
@@ -16,32 +18,32 @@ export default function AdminDashboard() {
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-8 border-b border-white/10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="eyebrow mb-3">Administration</div>
+            <div className="eyebrow mb-3">{t("ad.section")}</div>
             <h1 className="font-display text-4xl md:text-6xl tracking-tight leading-[0.95]">
-              Admin <span className="italic-accent">Dashboard</span>
+              {t("ad.h1")} <span className="italic-accent">{t("ad.italic")}</span>
             </h1>
-            <div className="mt-3 text-white/50 text-xs">Eingeloggt als <b className="text-white/80">{user?.email}</b></div>
+            <div className="mt-3 text-white/50 text-xs">{t("ad.loggedIn")} <b className="text-white/80">{user?.email}</b></div>
           </div>
           <button
             onClick={logout}
             className="border border-white/20 px-5 py-2.5 text-xs uppercase tracking-wider hover:bg-white hover:text-[#0B1736] flex items-center gap-2"
             data-testid="admin-logout-btn"
           >
-            <LogOut size={14} /> Logout
+            <LogOut size={14} /> {t("ad.logout")}
           </button>
         </div>
       </section>
 
       <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 pt-8">
         <div className="flex gap-1 border-b border-white/10">
-          <Tab id="inquiries" active={tab} setActive={setTab} icon={Inbox} label="Anfragen" />
-          <Tab id="contacts" active={tab} setActive={setTab} icon={MessageSquare} label="Kontakte" />
-          <Tab id="products" active={tab} setActive={setTab} icon={Package} label="Produkte" />
+          <Tab id="inquiries" active={tab} setActive={setTab} icon={Inbox} label={t("ad.tab.inquiries")} />
+          <Tab id="contacts" active={tab} setActive={setTab} icon={MessageSquare} label={t("ad.tab.contacts")} />
+          <Tab id="products" active={tab} setActive={setTab} icon={Package} label={t("ad.tab.products")} />
         </div>
 
         <div className="py-10">
-          {tab === "inquiries" && <InquiriesPanel authHeaders={authHeaders} />}
-          {tab === "contacts" && <ContactsPanel authHeaders={authHeaders} />}
+          {tab === "inquiries" && <InquiriesPanel authHeaders={authHeaders} t={t} />}
+          {tab === "contacts" && <ContactsPanel authHeaders={authHeaders} t={t} />}
           {tab === "products" && <ProductsPanel authHeaders={authHeaders} />}
         </div>
       </section>
@@ -62,7 +64,7 @@ const Tab = ({ id, active, setActive, icon: Icon, label }) => (
 );
 
 // ============ Inquiries ============
-function InquiriesPanel({ authHeaders }) {
+function InquiriesPanel({ authHeaders, t }) {
   const [items, setItems] = useState(null);
   const load = async () => {
     setItems(null);
@@ -70,7 +72,7 @@ function InquiriesPanel({ authHeaders }) {
       const { data } = await axios.get(`${API}/admin/inquiries`, { headers: authHeaders });
       setItems(data);
     } catch {
-      toast.error("Konnte Anfragen nicht laden");
+      toast.error(t("ad.loadErrInq"));
       setItems([]);
     }
   };
@@ -78,24 +80,24 @@ function InquiriesPanel({ authHeaders }) {
   useEffect(() => { load(); }, []);
 
   const onDelete = async (id) => {
-    if (!window.confirm("Anfrage wirklich löschen?")) return;
+    if (!window.confirm(t("ad.deleteConfirm"))) return;
     try {
       await axios.delete(`${API}/admin/inquiries/${id}`, { headers: authHeaders });
-      toast.success("Gelöscht");
+      toast.success(t("ad.deleted"));
       load();
     } catch {
-      toast.error("Löschen fehlgeschlagen");
+      toast.error(t("ad.deleteErr"));
     }
   };
 
-  if (items === null) return <div className="text-white/40 text-sm">Lädt…</div>;
-  if (items.length === 0) return <Empty label="Noch keine Anfragen erhalten." />;
+  if (items === null) return <div className="text-white/40 text-sm">{t("ad.loading")}</div>;
+  if (items.length === 0) return <Empty label={t("ad.noInquiries")} />;
 
   return (
     <div className="space-y-4" data-testid="admin-inquiries-list">
       <div className="flex items-center justify-between">
         <div className="text-white/60 text-sm">{items.length} Anfrage{items.length !== 1 ? "n" : ""}</div>
-        <button onClick={load} className="text-white/60 hover:text-white text-xs flex items-center gap-1.5"><RefreshCcw size={12}/> Neu laden</button>
+        <button onClick={load} className="text-white/60 hover:text-white text-xs flex items-center gap-1.5"><RefreshCcw size={12}/> {t("ad.reload")}</button>
       </div>
       {items.map((q) => (
         <div key={q.id} className="border border-white/10 p-6" data-testid={`inquiry-${q.id}`}>
@@ -136,16 +138,16 @@ function InquiriesPanel({ authHeaders }) {
 }
 
 // ============ Contacts ============
-function ContactsPanel({ authHeaders }) {
+function ContactsPanel({ authHeaders, t }) {
   const [items, setItems] = useState(null);
   useEffect(() => {
     axios.get(`${API}/admin/contacts`, { headers: authHeaders })
       .then((r) => setItems(r.data))
-      .catch(() => { toast.error("Konnte Kontakte nicht laden"); setItems([]); });
+      .catch(() => { toast.error(t("ad.loadErrCon")); setItems([]); });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  if (items === null) return <div className="text-white/40 text-sm">Lädt…</div>;
-  if (items.length === 0) return <Empty label="Noch keine Kontaktnachrichten." />;
+  if (items === null) return <div className="text-white/40 text-sm">{t("ad.loading")}</div>;
+  if (items.length === 0) return <Empty label={t("ad.noContacts")} />;
   return (
     <div className="space-y-4" data-testid="admin-contacts-list">
       {items.map((c, i) => (

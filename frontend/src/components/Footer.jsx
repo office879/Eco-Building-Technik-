@@ -33,6 +33,7 @@ export default function Footer() {
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="text-white/80 hover:text-white">{t("nav.start")}</Link></li>
             <li><Link to="/shop" className="text-white/80 hover:text-white">{t("nav.shop")}</Link></li>
+            <li><Link to="/loesungen" className="text-white/80 hover:text-white">{t("nav.solutions")}</Link></li>
             <li><Link to="/energie-rechner" className="text-white/80 hover:text-white">{t("nav.energy")}</Link></li>
             <li><Link to="/ueber-uns" className="text-white/80 hover:text-white">{t("nav.about")}</Link></li>
             <li><Link to="/kontakt" className="text-white/80 hover:text-white">{t("nav.contact")}</Link></li>
